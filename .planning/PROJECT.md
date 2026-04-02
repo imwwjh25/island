@@ -12,15 +12,14 @@ Never lose track of which agent conversation needs your attention — see all ag
 
 ### Validated
 
-(None yet — ship to validate)
+- [x] Monitor Claude Code agent status via local socket - Validated in Phase 1
+- [x] Display status in MenuBarExtra (in progress / complete / awaiting approval) - Validated in Phase 3
+- [x] Visual prompts when agent needs approval or completes - Validated in Phase 3
+- [x] 8-bit pixel game sound effects for all state changes - Validated in Phase 2
 
 ### Active
 
-- [ ] Monitor Claude Code agent status via local socket
-- [ ] Display status in Dynamic Island (in progress / complete / awaiting approval)
-- [ ] Auto-expand Dynamic Island when agent needs approval or completes
-- [ ] Click card to jump to corresponding terminal tab
-- [ ] 8-bit pixel game sound effects for all state changes
+- [ ] Click agent card to jump to corresponding terminal tab - Phase 4
 
 ### Out of Scope
 
@@ -32,7 +31,9 @@ Never lose track of which agent conversation needs your attention — see all ag
 
 User runs 5-10 Claude Code conversations in parallel during Vibe Coding sessions. Switching between terminals causes context loss — forgets which conversations are still running, which need approval, which are done. Human context window is overloaded.
 
-Dynamic Island provides an elegant UI pattern: shows background task state without interrupting foreground work, only expands when attention is needed, enables lightweight interaction without app switching, adds a sense of presence/companionship.
+MenuBarExtra provides an elegant UI pattern: shows background task state without interrupting foreground work, only provides visual cues when attention is needed (blinking, color changes), enables lightweight interaction without app switching, adds a sense of presence/companionship.
+
+**Technical Reality:** macOS doesn't support iOS-style Dynamic Island (requires specific camera hardware). MenuBarExtra with expandable popover provides the closest equivalent experience.
 
 ## Constraints
 
@@ -45,9 +46,12 @@ Dynamic Island provides an elegant UI pattern: shows background task state witho
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Socket-based monitoring | Real-time, reliable state detection vs brittle log parsing | — Pending |
-| Include sound effects in MVP | Core to the "Vibe" experience, not a polish item | — Pending |
-| Claude Code only | Validate core concept before expanding to other agents | — Pending |
+| Socket-based monitoring | Real-time, reliable state detection vs brittle log parsing | ✅ Implemented in Phase 1 |
+| Include sound effects in MVP | Core to the "Vibe" experience, not a polish item | ✅ Implemented in Phase 2 |
+| Claude Code only | Validate core concept before expanding to other agents | ✅ MVP scope confirmed |
+| MenuBarExtra over Dynamic Island | macOS doesn't support iOS Dynamic Island; MenuBarExtra is native equivalent | ✅ Implemented in Phase 3 |
+| Visual prompts over auto-expand | MenuBarExtra doesn't support programmatic popover expansion | ✅ Implemented in Phase 3 |
+| Semantic colors for accessibility | Automatic light/dark mode adaptation, Apple compliance | ✅ Implemented in Phase 3 |
 
 ## Evolution
 
@@ -67,4 +71,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-02 after initialization*
+*Last updated: 2026-04-02 after Phase 3 completion*

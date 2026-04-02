@@ -1,7 +1,7 @@
 # Project State: Vibe Island
 
 **Started:** 2026-04-02
-**Current Status:** Phase 2 Plan 1 complete
+**Current Status:** Phase 3 Complete
 
 ---
 
@@ -9,7 +9,7 @@
 
 **Core Value:** Never lose track of which agent conversation needs your attention — see all agent states in one glance without switching terminals
 
-**Current Focus:** Background monitoring with sound effects and state detection
+**Current Focus:** MenuBarExtra UI with visual prompts and accessibility support
 
 **Platform:** macOS 14+
 **Agent Support:** Claude Code only (MVP)
@@ -18,12 +18,12 @@
 
 ## Current Position
 
-**Phase:** 2
-**Plan:** 1 (complete)
+**Phase:** 3
+**Plan:** All plans complete
 **Status:** Complete
-**Progress:** ▰▰▰▰▱ 80% complete
+**Progress:** ▰▰▰▰▰▰▰▰▰▰ 60% complete
 
-**Current Phase Goal:** Background monitoring detects state changes and provides sound feedback
+**Current Phase Goal:** Users view and interact with agent states in MenuBarExtra (macOS Dynamic Island alternative)
 
 ---
 
@@ -40,6 +40,12 @@
 - Tasks completed: 3/3
 - Files modified: 9
 - Test coverage: 32 test cases
+
+**Phase 3: Dynamic Island Widget**
+- Duration: ~1 hour
+- Tasks completed: 4/4
+- Files created: 11 (3 UI files, 5 test files, 3 SUMMARY files)
+- Features: MenuBarExtra UI, visual prompts, accessibility support
 
 ---
 
@@ -93,41 +99,54 @@
 
 **Date:** 2026-04-02
 **Work Completed:**
-- Phase 2 Plan 1: Main App Core completed
-- Enhanced StateManager with state change detection
-- Implemented SoundManager with AVAudioPlayer
-- Optimized widget reload rate limiting
-- All 32 test cases passing
+- Phase 3 全部 4 个计划完成
+- Wave 0: 创建测试基础设施（5 个测试文件）
+- Wave 1: 构建 MenuBarExtra UI（VibeIslandMenuBar、CompactStatusView、ExpandedDetailsView）
+- Wave 2: 实现视觉提示功能（闪烁、颜色变化、徽章）
+- Wave 3: 添加辅助功能支持（VoiceOver、减少动画、深色/浅色模式）
 
-**Decisions Made:**
-- StateManager tracks lastAgentStates to detect actual changes
-- SoundManager implements 0.1s play interval to prevent overlapping
-- Widget reload limited to 1s interval for performance
-- System mute detection via AppleScript on macOS
-- Sound toggle persisted to UserDefaults (enabled by default)
+**Technical Decisions:**
+- 使用 MenuBarExtra 替代 Dynamic Island（macOS 不支持 iOS 风格的 Dynamic Island）
+- 视觉提示替代自动展开（MenuBarExtra 不支持程序化展开 popover）
+- 所有颜色使用系统语义颜色，自动适配深色/浅色模式
+- 完整的 VoiceOver 标签和提示，符合 Apple 辅助功能指南
+
+**Files Created/Modified:**
+- VibeIsland/MenuBar/VibeIslandMenuBar.swift (重构为 MenuBarExtra)
+- VibeIsland/MenuBar/CompactStatusView.swift (新建)
+- VibeIsland/MenuBar/ExpandedDetailsView.swift (新建)
+- VibeIsland/State/StateManager.swift (添加 showVisualPrompt 通知)
+- VibeIslandTests/MenuBarManagerTests.swift (新建)
+- VibeIslandTests/CompactStatusViewTests.swift (新建)
+- VibeIslandTests/ExpandedDetailsViewTests.swift (新建)
+- VibeIslandTests/AccessibilityTests.swift (新建)
+- VibeIslandTests/VibeIslandMenuBarTests.swift (新建)
 
 **Requirements Completed:**
-- AGNT-03: Application detects when agent status changes
-- STMG-01: Agent states reflect actual Claude Code status
-- CORE-05: 8-bit sound effect when agent changes to in_progress
-- CORE-06: 8-bit sound effect when agent changes to complete
-- CORE-07: 8-bit sound effect when agent changes to awaiting_approval
-- CORE-08: Sound effects respect system mute state
+- DIUI-01: 用户看到包含代理数量和状态摘要的紧凑状态
+- DIUI-02: 用户可以点击 MenuBarExtra 展开到详细视图
+- DIUI-03: 用户看到紧凑和展开状态之间的平滑动画
+- DIUI-04: 用户可以点击背景折叠展开视图
+- CORE-01: 当代理需要审批时显示视觉提示
+- CORE-02: 当代理完成时显示视觉提示
+- ACCS-01: VoiceOver 正确播报内容
+- ACCS-02: UI 适应系统外观（深色/浅色模式）
+- ACCS-03: UI 尊重减少动作辅助功能设置
 
 ### Next Session
 
-**Recommended starting point:** `/gsd:plan-phase 3`
+**Recommended starting point:** `/gsd:plan-phase 4`
 
 **Context to carry forward:**
-- StateManager provides complete state change detection and history tracking
-- SoundManager provides sound playback and system mute detection
-- VibeIslandApp provides widget reload optimization and state monitoring integration
-- Known limitation: User needs to provide actual state_update.aiff sound file
+- MenuBarExtra UI 已完成，包括紧凑视图和展开视图
+- 视觉提示功能已实现，支持闪烁、颜色变化和徽章
+- 辅助功能支持完整，包括 VoiceOver 和减少动画
+- 准备开始 Phase 4: Terminal Integration
 
 **Files to reference:**
-- `.planning/phases/02-main-app-core/02-main-app-core-01-SUMMARY.md` - Phase 2 summary
-- `.planning/ROADMAP.md` - Phase 3 details
-- `.planning/REQUIREMENTS.md` - Remaining requirements for Phase 3
+- `.planning/phases/03-dynamic-island-widget/*SUMMARY.md` - Phase 3 完成总结
+- `.planning/ROADMAP.md` - Phase 4 详细信息
+- `.planning/REQUIREMENTS.md` - Phase 4 剩余要求（CORE-03, CORE-04）
 
 ---
 

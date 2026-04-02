@@ -12,7 +12,7 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 
 - [x] **Phase 1: Data Layer Foundation** - App Groups, socket monitoring, and state persistence ✅
 - [x] **Phase 2: Main App Core** - Background monitoring, sound effects, and state detection ✅
-- [ ] **Phase 3: Dynamic Island Widget** - UI rendering, auto-expansion, and accessibility
+- [x] **Phase 3: Dynamic Island Widget** - UI rendering, visual prompts, and accessibility ✅
 - [ ] **Phase 4: Terminal Integration** - Terminal tab jumping for iTerm2 and Terminal.app
 - [ ] **Phase 5: Polish & Deployment** - Performance, App Store preparation, final testing
 
@@ -62,7 +62,7 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 
 ### Phase 3: Dynamic Island Widget
 
-**Goal:** Users view and interact with agent states in Dynamic Island
+**Goal:** Users view and interact with agent states in MenuBarExtra (macOS Dynamic Island alternative)
 
 **Depends on:** Phase 2
 
@@ -70,23 +70,25 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 
 **Success Criteria** (what must be TRUE):
 1. User sees compact state with agent count and status summary
-2. User can tap Dynamic Island to expand to detailed view
-3. Dynamic Island automatically expands when agent needs approval
-4. Dynamic Island automatically expands when agent completes
-5. User sees smooth animations between compact and expanded states
-6. User can tap background to collapse expanded view
-7. VoiceOver announces Dynamic Island content correctly
-8. Dynamic Island UI adapts to system appearance (light/dark mode)
-9. Dynamic Island UI respects reduced motion accessibility setting
+2. User can tap MenuBarExtra to expand to detailed view
+3. User sees visual prompts when agent needs approval or completes (blinking, size change, badge)
+4. User sees smooth animations between compact and expanded states
+5. User can tap background to collapse expanded view
+6. VoiceOver announces content correctly
+7. MenuBarExtra UI adapts to system appearance (light/dark mode)
+8. MenuBarExtra UI respects reduced motion accessibility setting
 
-**Plans:** 3 plans
-- [ ] 03-dynamic-island-widget-01-PLAN.md — 构建 MenuBarExtra UI（紧凑视图和展开视图）
-- [ ] 03-dynamic-island-widget-02-PLAN.md — 实现自动展开逻辑和视觉提示
-- [ ] 03-dynamic-island-widget-03-PLAN.md — 添加辅助功能支持（VoiceOver、深色模式、减少动画）
+**Plans:** 4 plans
+- [x] 03-dynamic-island-widget-00-PLAN.md — 创建测试基础设施（Wave 0 测试骨架）
+- [x] 03-dynamic-island-widget-01-PLAN.md — 构建 MenuBarExtra UI（紧凑视图和展开视图）
+- [x] 03-dynamic-island-widget-02-PLAN.md — 实现视觉提示功能（替代自动展开）
+- [x] 03-dynamic-island-widget-03-PLAN.md — 添加辅助功能支持（VoiceOver、深色/浅色模式、减少动画）
 
 **UI hint:** yes
 
-**Note:** 由于 macOS 没有 iOS 风格的 Dynamic Island，使用 MenuBarExtra + Popover 作为替代方案
+**Note:** 由于 macOS 没有 iOS 风格的 Dynamic Island，使用 MenuBarExtra + Popover 作为替代方案。MenuBarExtra 不支持程序化展开 popover，使用视觉提示（闪烁、颜色变化、徽章）替代自动展开功能。
+
+**Completed:** 2026-04-02
 
 ---
 
@@ -133,11 +135,11 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 |-------|----------------|--------|-----------|
 | 1. Data Layer Foundation | 1/1 | Complete | 2026-04-02 |
 | 2. Main App Core | 1/1 | Complete | 2026-04-02 |
-| 3. Dynamic Island Widget | 0/3 | Not started | - |
+| 3. Dynamic Island Widget | 4/4 | Complete | 2026-04-02 |
 | 4. Terminal Integration | 0/0 | Not started | - |
 | 5. Polish & Deployment | 0/0 | Not started | - |
 
-**Overall Progress:** 2/5 phases complete
+**Overall Progress:** 3/5 phases complete
 
 ---
 
@@ -153,4 +155,4 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 
 ---
 *Roadmap created: 2026-04-02*
-*Last updated: 2026-04-02 - Phase 3 planned*
+*Last updated: 2026-04-02 - Phase 3 completed*
