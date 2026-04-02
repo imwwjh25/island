@@ -107,6 +107,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 - Mapped to phases: 20
 - Unmapped: 0 ✓
 
+**Phase Distribution:**
+- Phase 1: 4 requirements (Data Layer Foundation)
+- Phase 2: 6 requirements (Main App Core)
+- Phase 3: 10 requirements (Dynamic Island Widget)
+- Phase 4: 2 requirements (Terminal Integration)
+- Phase 5: 0 requirements (Polish & Deployment)
+
 ---
 *Requirements defined: 2026-04-02*
-*Last updated: 2026-04-02 after initial definition*
+*Last updated: 2026-04-02 after roadmap creation*
