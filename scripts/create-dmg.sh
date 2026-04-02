@@ -6,17 +6,32 @@ set -e
 APP_NAME="Vibe Island"
 VERSION="1.0.0"
 DMG_NAME="VibeIsland-${VERSION}.dmg"
-BUILD_DIR="build/Build/Products/Release"
+
+# 路径配置 - 支持 SPM 和 Xcode 构建
+PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+SPM_BUILD_DIR="$PROJECT_ROOT/.build/release"
+XCODE_BUILD_DIR="$PROJECT_ROOT/build/Build/Products/Release"
+
+# 检测构建产物位置
+if [ -d "$SPM_BUILD_DIR/$APP_NAME.app" ]; then
+  BUILD_DIR="$SPM_BUILD_DIR"
+  echo "检测到 SPM 构建产物"
+elif [ -d "$XCODE_BUILD_DIR/$APP_NAME.app" ]; then
+  BUILD_DIR="$XCODE_BUILD_DIR"
+  echo "检测到 Xcode 构建产物"
+else
+  echo "错误: 找不到构建产物"
+  echo "请先运行以下命令之一:"
+  echo "  - SPM 构建: ./scripts/build-app.sh"
+  echo "  - Xcode 构建: xcodebuild -configuration Release"
+  exit 1
+fi
+
 DMG_DIR="dmg-staging"
 
 echo "=== 创建 Vibe Island DMG 安装包 ==="
-
-# 检查构建产物是否存在
-if [ ! -d "$BUILD_DIR/$APP_NAME.app" ]; then
-  echo "错误: 找不到构建产物: $BUILD_DIR/$APP_NAME.app"
-  echo "请先运行 xcodebuild 构建 Release 版本"
-  exit 1
-fi
+echo "构建目录: $BUILD_DIR"
+echo ""
 
 # 清理旧文件
 echo "清理旧文件..."
