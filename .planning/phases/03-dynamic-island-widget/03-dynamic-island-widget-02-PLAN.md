@@ -15,23 +15,23 @@ user_setup: []
 
 must_haves:
   truths:
-    - "当代理状态变为 awaiting_approval 时，popover 自动展开"
-    - "当代理状态变为 complete 时，popover 自动展开"
-    - "自动展开时显示高优先级状态指示"
-    - "用户可以手动关闭自动展开的 popover"
+    - "当代理状态变为 awaiting_approval 时，菜单栏图标显示视觉提示（闪烁、颜色变化、徽章）"
+    - "当代理状态变为 complete 时，菜单栏图标显示视觉提示（闪烁、颜色变化、徽章）"
+    - "视觉提示自动触发，无需用户干预"
+    - "用户可以手动点击查看详细信息"
   artifacts:
     - path: "VibeIsland/MenuBar/VibeIslandMenuBar.swift"
-      provides: "MenuBarManager 自动展开逻辑"
+      provides: "MenuBarManager 状态变化监听"
       exports: ["MenuBarManager.handleAutoExpandStateChange", "MenuBarManager.shouldAutoExpand"]
-    - path: "VibeIslandTests/MenuBarManagerTests.swift"
-      provides: "自动展开逻辑的单元测试"
-      exports: ["testAutoExpandOnAwaitingApproval", "testAutoExpandOnComplete"]
+    - path: "VibeIsland/MenuBar/CompactStatusView.swift"
+      provides: "视觉提示功能（闪烁、颜色变化、徽章）"
+      exports: ["CompactStatusView 视觉提示状态"]
   key_links:
     - from: "VibeIsland/MenuBar/VibeIslandMenuBar.swift"
       to: "NotificationCenter.default"
       via: "监听 agentStateDidChange 通知"
       pattern: "NotificationCenter\\.default\\.publisher\\(for: \\.agentStateDidChange\\)"
-    - from: "VibeIsland/MenuBar/VibeIslandMenuBar.swift"
+    - from: "VibeIsland/MenuBar/CompactStatusView.swift"
       to: "VibeIsland/Models/AgentState.swift"
       via: "检查状态是否为 awaiting_approval 或 complete"
       pattern: "status == \\.awaitingApproval.*status == \\.complete"
@@ -76,6 +76,13 @@ extension Notification.Name {
     static let agentStateDidChange = Notification.Name("agentStateDidChange")
 }
 // userInfo 包含: "agentId", "oldStatus", "newStatus", "isNewAgent"
+```
+
+需要在 StateManager 中添加新的通知定义：
+```swift
+extension Notification.Name {
+    static let showVisualPrompt = Notification.Name("showVisualPrompt")
+}
 ```
 </context>
 
@@ -125,18 +132,22 @@ extension Notification.Name {
    func handleAutoExpandStateChange(notification: Notification) {
        guard let agentId = notification.userInfo?["agentId"] as? String,
              let newStatusString = notification.userInfo?["newStatus"] as? String,
-             let newStatus = AgentStatus.from(string: newStatusString),
+             let newStatus = AgentStatus(rawValue: newStatusString),
              let oldStatusString = notification.userInfo?["oldStatus"] as? String,
-             let oldStatus = AgentStatus.from(string: oldStatusString) else {
+             let oldStatus = AgentStatus(rawValue: oldStatusString) else {
            return
        }
 
-       // 检查是否应该自动展开
+       // 检查是否应该触发视觉提示
        if shouldAutoExpand(newStatus: newStatus, oldStatus: oldStatus) {
-           isPopoverExpanded = true
-           lastAutoExpandTime = Date()
+           // 设置视觉提示标志（将在 CompactStatusView 中使用）
+           NotificationCenter.default.post(
+               name: .showVisualPrompt,
+               object: nil,
+               userInfo: ["status": newStatusString, "agentId": agentId]
+           )
 
-           print("🚀 自动展开 popover（代理：\(agentId)，状态：\(newStatus.displayName)）")
+           print("🚀 显示视觉提示（代理：\(agentId)，状态：\(newStatus.displayName)）")
        }
    }
    ```
@@ -144,23 +155,6 @@ extension Notification.Name {
 4. **在 MenuBarManager.init() 中监听通知**：
    - 添加对 `.agentStateDidChange` 通知的监听
    - 使用 `sink` 订阅通知，调用 `handleAutoExpandStateChange`
-
-5. **在 VibeIslandMenuBar 中绑定自动展开状态**：
-   - 将 `MenuBarManager.shared.isPopoverExpanded` 绑定到 MenuBarExtra 的展开状态
-   - 使用 `@Binding` 或 `@ObservedObject` 实现双向绑定
-
-**注意**：MenuBarExtra 在 SwiftUI 中没有直接的控制 API 来强制展开 popover。需要使用替代方案：
-- 使用 `NSApplication.shared.activate(ignoringOtherApps: true)` 激活应用
-- 使用通知或状态标志来指示应该展开
-- 考虑使用 `.persistentSystemBehaviors()` 修饰符控制 popover 行为
-
-**替代方案**：由于 SwiftUI MenuBarExtra 的限制，使用以下方式实现"自动展开"效果：
-1. 添加一个视觉提示（闪烁图标、改变图标颜色）
-2. 播放音效（已在 Phase 2 实现）
-3. 添加一个"有新状态"徽章或指示器
-4. 如果用户点击，则显示状态变化的信息
-
-根据 RESEARCH.md 的建议，在 macOS 上无法直接控制 MenuBarExtra popover 的展开。建议实现视觉提示和音效作为替代。
   </action>
   <verify>
     <automated>xcodebuild -scheme VibeIsland -destination 'platform=macOS' build</automated>
