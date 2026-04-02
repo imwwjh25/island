@@ -6,12 +6,13 @@
 //
 
 import Foundation
+@testable import VibeIsland
 
 /// 模拟终端控制器，用于测试
 class MockTerminalController {
     /// 模拟的终端运行状态
     var isIterm2Running = false
-    var isTerminalRunning = false
+    var isTerminalAppRunning = false
 
     /// 模拟的跳转结果
     var jumpToTabResult = true
@@ -25,7 +26,7 @@ class MockTerminalController {
         case .iterm2:
             return isIterm2Running
         case .terminal:
-            return isTerminalRunning
+            return isTerminalAppRunning
         }
     }
 
@@ -40,7 +41,7 @@ class MockTerminalController {
     /// 重置模拟状态
     func reset() {
         isIterm2Running = false
-        isTerminalRunning = false
+        isTerminalAppRunning = false
         jumpToTabResult = true
         mockExecutor.reset()
     }

@@ -71,7 +71,7 @@ class TerminalController {
 
         // 执行 AppleScript
         var error: NSDictionary?
-        let result = appleScript.executeAndReturnError(&error)
+        _ = appleScript.executeAndReturnError(&error)
 
         if let error = error {
             print("TerminalController: AppleScript 执行失败 - \(error)")
@@ -97,8 +97,8 @@ class TerminalController {
 
     /// 创建 iTerm2 跳转标签页的 AppleScript
     /// - Parameter tabId: 标签页 ID
-    /// - Returns: NSAppleScript 实例
-    private func createITerm2JumpScript(tabId: String) -> NSAppleScript {
+    /// - Returns: NSAppleScript 实例（可能为 nil）
+    private func createITerm2JumpScript(tabId: String) -> NSAppleScript? {
         let scriptString = """
         tell application "iTerm2"
             tell current window
@@ -112,8 +112,8 @@ class TerminalController {
 
     /// 创建 Terminal.app 跳转标签页的 AppleScript
     /// - Parameter tabId: 标签页 ID
-    /// - Returns: NSAppleScript 实例
-    private func createTerminalJumpScript(tabId: String) -> NSAppleScript {
+    /// - Returns: NSAppleScript 实例（可能为 nil）
+    private func createTerminalJumpScript(tabId: String) -> NSAppleScript? {
         let scriptString = """
         tell application "Terminal"
             tell window 1
