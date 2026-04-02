@@ -32,7 +32,8 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 3. Agent states persist across app termination and relaunch
 4. Shared container is accessible to both main app and widget extension
 
-**Plans:** TBD
+**Plans:** 1 plan
+- [ ] 01-data-layer-foundation-01-PLAN.md — 创建共享数据模型、状态管理器和套接字监控器
 
 ---
 
@@ -120,7 +121,7 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Data Layer Foundation | 0/0 | Not started | - |
+| 1. Data Layer Foundation | 0/1 | Planning complete | - |
 | 2. Main App Core | 0/0 | Not started | - |
 | 3. Dynamic Island Widget | 0/0 | Not started | - |
 | 4. Terminal Integration | 0/0 | Not started | - |
@@ -143,3 +144,4 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 ---
 
 *Roadmap created: 2026-04-02*
+*Last updated: 2026-04-02 - Phase 1 planning complete*
