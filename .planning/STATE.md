@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-last_updated: "2026-04-02T12:25:17.592Z"
+last_updated: "2026-04-02T14:02:47.720Z"
 progress:
   total_phases: 5
-  completed_phases: 2
+  completed_phases: 4
   total_plans: 9
-  completed_plans: 6
+  completed_plans: 9
   percent: 67
 ---
 
@@ -23,7 +23,7 @@ progress:
 
 **Core Value:** Never lose track of which agent conversation needs your attention — see all agent states in one glance without switching terminals
 
-**Current Focus:** Terminal Integration for iTerm2 and Terminal.app
+**Current Focus:** Phase 01 — data-layer-foundation
 
 **Platform:** macOS 14+
 **Agent Support:** Claude Code only (MVP)
@@ -32,9 +32,11 @@ progress:
 
 ## Current Position
 
-**Phase:** 4
-**Plan:** In Planning
-**Status:** In Planning
+Phase: 01 (data-layer-foundation) — EXECUTING
+Plan: 1 of 1
+**Phase:** 5
+**Plan:** Not started
+**Status:** Ready to plan
 **Progress:** [███████░░░] 67%
 
 **Current Phase Goal:** Users can jump to the terminal tab for specific agents
@@ -171,6 +173,7 @@ progress:
 - Phase 4 测试基础设施已完成（4 个测试文件）
 
 **Phase 4 Status:**
+
 - `04-terminal-integration-00` - 测试基础设施创建 (已完成)
 - `04-terminal-integration-01` - 创建 TerminalController 终端控制器
 - `04-terminal-integration-02` - 在 ExpandedDetailsView 中添加点击交互和错误反馈
