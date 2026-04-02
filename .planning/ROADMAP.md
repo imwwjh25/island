@@ -14,7 +14,7 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 - [x] **Phase 2: Main App Core** - Background monitoring, sound effects, and state detection ✅
 - [x] **Phase 3: Dynamic Island Widget** - UI rendering, visual prompts, and accessibility ✅
 - [ ] **Phase 4: Terminal Integration** - Terminal tab jumping for iTerm2 and Terminal.app
-- [ ] **Phase 5: Polish & Deployment** - Performance, App Store preparation, final testing
+- [ ] **Phase 5: Polish & Deployment** - Xcode project setup and DMG packaging for MVP
 
 ## Phase Details
 
@@ -114,20 +114,24 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 
 ### Phase 5: Polish & Deployment
 
-**Goal:** App is performant, accessible, and ready for App Store submission
+**Goal:** 构建 macOS 应用并生成 DMG 安装包，用于 MVP 功能验证
 
 **Depends on:** Phase 4
 
 **Requirements:** (None - final polish phase)
 
-**Success Criteria** (what must be TRUE):
-1. App has no memory leaks (verified with Instruments profiling)
-2. App meets App Store accessibility requirements
-3. App Store assets (screenshots, metadata) are complete
-4. macOS 14+ requirement is correctly specified in deployment target
-5. End-to-end testing confirms all features work correctly
+**Success Criteria** (what must be TRUE - adjusted for MVP):
+1. Xcode 项目构建成功，无编译错误
+2. DMG 安装包创建成功
+3. DMG 可以挂载，应用可以安装到 /Applications
+4. 安装后的应用可以启动并运行
+5. 基本功能验证通过（套接字监控、菜单栏 UI、终端跳转）
 
-**Plans:** TBD
+**Plans:** 2 plans
+- [ ] 05-polish-deployment-01-PLAN.md — 创建 Xcode 项目和构建配置
+- [ ] 05-polish-deployment-02-PLAN.md — 创建 DMG 安装包和功能验证
+
+**Note:** 此阶段针对 MVP 简化，不包含 App Store 提交、性能分析、完整辅助功能测试。目标是生成可安装的应用包用于功能验证。
 
 ---
 
@@ -139,7 +143,7 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 | 2. Main App Core | 1/1 | Complete | 2026-04-02 |
 | 3. Dynamic Island Widget | 4/4 | Complete | 2026-04-02 |
 | 4. Terminal Integration | 0/2 | In planning | - |
-| 5. Polish & Deployment | 0/0 | Not started | - |
+| 5. Polish & Deployment | 0/2 | Planned | - |
 
 **Overall Progress:** 3/5 phases complete
 
@@ -157,4 +161,4 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 
 ---
 *Roadmap created: 2026-04-02*
-*Last updated: 2026-04-02 - Phase 3 completed*
+*Last updated: 2026-04-02 - Phase 5 planned*
