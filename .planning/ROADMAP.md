@@ -128,7 +128,7 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 5. 基本功能验证通过（套接字监控、菜单栏 UI、终端跳转）
 
 **Plans:** 2 plans
-- [ ] 05-polish-deployment-01-PLAN.md — 创建 Xcode 项目和构建配置
+- [x] 05-polish-deployment-01-PLAN.md — 创建 Xcode 项目和构建配置
 - [ ] 05-polish-deployment-02-PLAN.md — 创建 DMG 安装包和功能验证
 
 **Note:** 此阶段针对 MVP 简化，不包含 App Store 提交、性能分析、完整辅助功能测试。目标是生成可安装的应用包用于功能验证。

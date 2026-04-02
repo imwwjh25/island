@@ -2,20 +2,20 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: planning
-last_updated: "2026-04-02T14:02:47.720Z"
+status: executing
+last_updated: "2026-04-02T14:20:27.509Z"
 progress:
   total_phases: 5
   completed_phases: 4
-  total_plans: 9
-  completed_plans: 9
-  percent: 67
+  total_plans: 11
+  completed_plans: 10
+  percent: 91
 ---
 
 # Project State: Vibe Island
 
 **Started:** 2026-04-02
-**Current Status:** Phase 4 In Execution
+**Current Status:** Phase 5 In Execution
 
 ---
 
@@ -23,7 +23,7 @@ progress:
 
 **Core Value:** Never lose track of which agent conversation needs your attention — see all agent states in one glance without switching terminals
 
-**Current Focus:** Phase 01 — data-layer-foundation
+**Current Focus:** Phase 05 — polish-deployment
 
 **Platform:** macOS 14+
 **Agent Support:** Claude Code only (MVP)
@@ -32,14 +32,14 @@ progress:
 
 ## Current Position
 
-Phase: 01 (data-layer-foundation) — EXECUTING
-Plan: 1 of 1
+Phase: 05 (polish-deployment) — EXECUTING
+Plan: 2 of 2
 **Phase:** 5
-**Plan:** Not started
-**Status:** Ready to plan
-**Progress:** [███████░░░] 67%
+**Plan:** 2 of 2
+**Status:** Executing Phase 05
+**Progress:** [█████████░] 91%
 
-**Current Phase Goal:** Users can jump to the terminal tab for specific agents
+**Current Phase Goal:** 完善应用并准备部署
 
 ---
 
@@ -65,6 +65,20 @@ Plan: 1 of 1
 - Tasks completed: 4/4
 - Files created: 11 (3 UI files, 5 test files, 3 SUMMARY files)
 - Features: MenuBarExtra UI, visual prompts, accessibility support
+
+**Phase 4: Terminal Integration**
+
+- Duration: ~45 minutes
+- Tasks completed: 3/3
+- Files created: 6 (1 controller, 4 test files, 1 modified view)
+- Features: Terminal tab jumping, AppleScript integration
+
+**Phase 5: Polish & Deployment**
+
+- Duration: ~2 minutes (Plan 01)
+- Tasks completed: 3/3
+- Files created: 3 (Info.plist, Entitlements, BUILD.md)
+- Features: Xcode project configuration, build documentation
 
 ---
 
@@ -136,6 +150,7 @@ Plan: 1 of 1
 - 视觉提示替代自动展开（MenuBarExtra 不支持程序化展开 popover）
 - 所有颜色使用系统语义颜色，自动适配深色/浅色模式
 - 完整的 VoiceOver 标签和提示，符合 Apple 辅助功能指南
+- 使用现有的 VibeIslandMenuBar.swift 作为应用入口点，无需创建单独的 VibeIslandApp.swift（Phase 5）
 
 **Files Created/Modified:**
 
@@ -163,37 +178,21 @@ Plan: 1 of 1
 
 ### Next Session
 
-**Recommended starting point:** `/gsd:execute-phase 4`
+**Recommended starting point:** `/gsd:execute-phase 5` (继续 Plan 02)
 
 **Context to carry forward:**
 
-- MenuBarExtra UI 已完成，包括紧凑视图和展开视图
-- 视觉提示功能已实现，支持闪烁、颜色变化和徽章
-- 辅助功能支持完整，包括 VoiceOver 和减少动画
-- Phase 4 测试基础设施已完成（4 个测试文件）
+- Phase 5 Plan 01 已完成：创建了 Xcode 项目配置文件和构建文档
+- Info.plist 和 Entitlements 已配置完成
+- BUILD.md 提供完整的 Xcode 项目创建指南
+- 应用入口点已存在于 VibeIslandMenuBar.swift
 
-**Phase 4 Status:**
+**Phase 5 Status:**
 
-- `04-terminal-integration-00` - 测试基础设施创建 (已完成)
-- `04-terminal-integration-01` - 创建 TerminalController 终端控制器
-- `04-terminal-integration-02` - 在 ExpandedDetailsView 中添加点击交互和错误反馈
-
-**Phase 4 Work Completed:**
-
-- Wave 0: 创建测试基础设施（4 个测试文件）
-  - TerminalControllerTests.swift - 12 个单元测试用例
-  - TerminalIntegrationTests.swift - 4 个集成测试用例
-  - MockAppleScriptExecutor.swift - AppleScript 模拟器
-  - MockTerminalController.swift - TerminalController 模拟器
-
-**Files to reference:**
-
-- `.planning/phases/03-dynamic-island-widget/*SUMMARY.md` - Phase 3 完成总结
-- `.planning/phases/04-terminal-integration/04-terminal-integration-00-SUMMARY.md` - Phase 4 Wave 0 完成总结
-- `.planning/ROADMAP.md` - Phase 4 详细信息
-- `.planning/REQUIREMENTS.md` - Phase 4 剩余要求（CORE-03, CORE-04）
+- `05-polish-deployment-01` - 创建 Xcode 项目配置 (已完成)
+- `05-polish-deployment-02` - 创建 DMG 安装包和应用签名配置 (待执行)
 
 ---
 
 *State initialized: 2026-04-02*
-*Last updated: 2026-04-02 - Phase 4 Wave 0 测试基础设施完成*
+*Last updated: 2026-04-02 - Phase 5 Plan 01 完成：Xcode 项目配置*
