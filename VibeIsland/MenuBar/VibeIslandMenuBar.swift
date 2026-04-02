@@ -1,19 +1,73 @@
 //
-//  VibeIslandApp.swift
+//  VibeIslandMenuBar.swift
 //  VibeIsland
 //
-//  主应用入口点
+//  菜单栏管理器和 MenuBarExtra 入口点
 //
 
 import SwiftUI
 import Combine
 
+/// 菜单栏管理器
+/// 负责控制 popover 展开状态和响应状态变化
+class MenuBarManager: ObservableObject {
+    /// 单例实例
+    static let shared = MenuBarManager()
+
+    /// 是否展开 popover
+    @Published var isPopoverExpanded = false
+
+    /// 订阅集合
+    private var cancellables = Set<AnyCancellable>()
+
+    private init() {
+        setupNotifications()
+    }
+
+    // MARK: - 通知设置
+
+    /// 设置通知监听
+    private func setupNotifications() {
+        // 监听单个代理状态变化
+        NotificationCenter.default.publisher(for: .agentStateDidChange)
+            .sink { [weak self] notification in
+                self?.handleStateChange(notification: notification)
+            }
+            .store(in: &cancellables)
+
+        // 监听批量状态变化
+        NotificationCenter.default.publisher(for: .agentStatesDidChange)
+            .sink { [weak self] _ in
+                // 状态变化时更新 UI（通过 @Published 属性自动刷新）
+                self?.objectWillChange.send()
+            }
+            .store(in: &cancellables)
+    }
+
+    // MARK: - 状态变化处理
+
+    /// 处理状态变化通知
+    /// - Parameter notification: 通知对象
+    func handleStateChange(notification: Notification) {
+        guard let _ = notification.userInfo?["agentId"] as? String else {
+            return
+        }
+
+        // 状态变化时触发 UI 更新
+        objectWillChange.send()
+    }
+}
+
+/// Vibe Island 菜单栏应用
 @main
-struct VibeIslandApp: App {
+struct VibeIslandMenuBar: App {
     // MARK: - 属性
 
     /// 状态管理器
     private let stateManager = StateManager.shared
+
+    /// 菜单栏管理器
+    @ObservedObject private var menuBarManager = MenuBarManager.shared
 
     /// 套接字监控器
     @StateObject private var socketMonitor = SocketMonitor()
@@ -24,10 +78,10 @@ struct VibeIslandApp: App {
     /// 订阅集合
     private var cancellables = Set<AnyCancellable>()
 
-    /// 上次widget重新加载时间
+    /// 上次 widget 重新加载时间
     private var lastWidgetReloadTime: Date?
 
-    /// widget重新加载间隔（秒）
+    /// widget 重新加载间隔（秒）
     private let widgetReloadInterval: TimeInterval = 1.0
 
     // MARK: - 初始化
@@ -39,25 +93,14 @@ struct VibeIslandApp: App {
     // MARK: - Body
 
     var body: some Scene {
-        // MenuExtra 应用（菜单栏应用）
-        MenuExtra("Vibe Island") {
-            MenuSection {
-                Text("动态岛监控")
-                    .foregroundColor(.secondary)
-            }
-
-            Divider()
-
-            Button("偏好设置") {
-                // TODO: 打开偏好设置窗口
-            }
-
-            Button("退出", role: .destructive) {
-                NSApplication.shared.terminate(nil)
-            }
+        MenuBarExtra("Vibe Island") {
+            // Popover 内容 - 展开详细视图
+            ExpandedDetailsView()
         } label: {
-            Image(systemName: "island")
+            // 菜单栏图标 - 紧凑状态视图
+            CompactStatusView()
         }
+        .menuBarExtraStyle(.window)
     }
 
     // MARK: - 集成设置

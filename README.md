@@ -47,4 +47,4 @@ open VibeIsland.xcodeproj
 
 ## 许可证
 
-[待添加]
+MIT
