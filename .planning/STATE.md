@@ -1,7 +1,7 @@
 # Project State: Vibe Island
 
 **Started:** 2026-04-02
-**Current Status:** Planning complete, ready for Phase 1
+**Current Status:** Phase 2 Plan 1 complete
 
 ---
 
@@ -9,7 +9,7 @@
 
 **Core Value:** Never lose track of which agent conversation needs your attention — see all agent states in one glance without switching terminals
 
-**Current Focus:** Setting up data layer foundation (App Groups, socket monitoring, state persistence)
+**Current Focus:** Background monitoring with sound effects and state detection
 
 **Platform:** macOS 14+
 **Agent Support:** Claude Code only (MVP)
@@ -18,18 +18,28 @@
 
 ## Current Position
 
-**Phase:** 1
-**Plan:** None created yet
-**Status:** Not started
-**Progress:** ▱▱▱▱▱ 0% complete
+**Phase:** 2
+**Plan:** 1 (complete)
+**Status:** Complete
+**Progress:** ▰▰▰▰▱ 80% complete
 
-**Current Phase Goal:** Shared data infrastructure enables main app and widget to communicate and persist state reliably
+**Current Phase Goal:** Background monitoring detects state changes and provides sound feedback
 
 ---
 
 ## Performance Metrics
 
-*No metrics yet - first phase not started*
+**Phase 1: Data Layer Foundation**
+- Duration: ~2 hours
+- Tasks completed: 4/4
+- Files modified: 7
+- Test coverage: 22 test cases
+
+**Phase 2: Main App Core**
+- Duration: ~30 minutes
+- Tasks completed: 3/3
+- Files modified: 9
+- Test coverage: 32 test cases
 
 ---
 
@@ -83,29 +93,41 @@
 
 **Date:** 2026-04-02
 **Work Completed:**
-- Project initialized
-- Research completed (HIGH confidence)
-- Roadmap created (5 phases)
-- Requirements defined (20 v1 requirements)
+- Phase 2 Plan 1: Main App Core completed
+- Enhanced StateManager with state change detection
+- Implemented SoundManager with AVAudioPlayer
+- Optimized widget reload rate limiting
+- All 32 test cases passing
 
 **Decisions Made:**
-- Confirmed two-target architecture
-- Adopted research-guided phase structure
-- Granularity set to Standard
+- StateManager tracks lastAgentStates to detect actual changes
+- SoundManager implements 0.1s play interval to prevent overlapping
+- Widget reload limited to 1s interval for performance
+- System mute detection via AppleScript on macOS
+- Sound toggle persisted to UserDefaults (enabled by default)
+
+**Requirements Completed:**
+- AGNT-03: Application detects when agent status changes
+- STMG-01: Agent states reflect actual Claude Code status
+- CORE-05: 8-bit sound effect when agent changes to in_progress
+- CORE-06: 8-bit sound effect when agent changes to complete
+- CORE-07: 8-bit sound effect when agent changes to awaiting_approval
+- CORE-08: Sound effects respect system mute state
 
 ### Next Session
 
-**Recommended starting point:** `/gsd:plan-phase 1`
+**Recommended starting point:** `/gsd:plan-phase 3`
 
 **Context to carry forward:**
-- Phase 1 requirements: AGNT-01, AGNT-02, STMG-02, STMG-03
-- Research Phase 1 findings: App Groups, socket parsing, state persistence are well-documented
-- Success criteria: 4 observable behaviors focused on data infrastructure
+- StateManager provides complete state change detection and history tracking
+- SoundManager provides sound playback and system mute detection
+- VibeIslandApp provides widget reload optimization and state monitoring integration
+- Known limitation: User needs to provide actual state_update.aiff sound file
 
 **Files to reference:**
-- `.planning/ROADMAP.md` - Phase 1 details
-- `.planning/REQUIREMENTS.md` - Full requirement list
-- `.planning/research/SUMMARY.md` - Technical guidance for Phase 1
+- `.planning/phases/02-main-app-core/02-main-app-core-01-SUMMARY.md` - Phase 2 summary
+- `.planning/ROADMAP.md` - Phase 3 details
+- `.planning/REQUIREMENTS.md` - Remaining requirements for Phase 3
 
 ---
 

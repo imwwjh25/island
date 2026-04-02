@@ -54,7 +54,9 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 4. Widget reloads its timeline immediately after state change
 
 **Plans:** 1 plan
-- [ ] 02-main-app-core-01-PLAN.md — 增强状态变化检测、实现音效系统、优化widget重新加载
+- [x] 02-main-app-core-01-PLAN.md — 增强状态变化检测、实现音效系统、优化widget重新加载
+
+**Completed:** 2026-04-02
 
 ---
 
@@ -125,12 +127,12 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Data Layer Foundation | 1/1 | Complete | 2026-04-02 |
-| 2. Main App Core | 0/1 | Ready for execution | - |
+| 2. Main App Core | 1/1 | Complete | 2026-04-02 |
 | 3. Dynamic Island Widget | 0/0 | Not started | - |
 | 4. Terminal Integration | 0/0 | Not started | - |
 | 5. Polish & Deployment | 0/0 | Not started | - |
 
-**Overall Progress:** 1/5 phases complete
+**Overall Progress:** 2/5 phases complete
 
 ---
 

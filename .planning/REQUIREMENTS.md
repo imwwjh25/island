@@ -16,15 +16,15 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### State Management
 
-- [ ] **STMG-01**: Agent states reflect actual Claude Code status (not stale data)
-- [ ] **STMG-02**: Agent states persist across app backgrounding and termination
+- [x] **STMG-01**: Agent states reflect actual Claude Code status (not stale data)
+- [x] **STMG-02**: Agent states persist across app backgrounding and termination
 - [ ] **STMG-03**: Multiple active Claude Code agents display in one Dynamic Island view
 
 ### Agent Monitoring
 
-- [ ] **AGNT-01**: App connects to Claude Code via local socket
-- [ ] **AGNT-02**: App parses agent states: in_progress, complete, awaiting_approval
-- [ ] **AGNT-03**: App detects when agent status changes
+- [x] **AGNT-01**: App connects to Claude Code via local socket
+- [x] **AGNT-02**: App parses agent states: in_progress, complete, awaiting_approval
+- [x] **AGNT-03**: App detects when agent status changes
 
 ### Core Features
 
@@ -32,10 +32,10 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **CORE-02**: Dynamic Island automatically expands when agent completes
 - [ ] **CORE-03**: User can click agent card to jump to corresponding terminal tab (iTerm2)
 - [ ] **CORE-04**: User can click agent card to jump to corresponding terminal tab (Terminal.app)
-- [ ] **CORE-05**: App plays 8-bit pixel game sound effect when agent changes to in_progress
-- [ ] **CORE-06**: App plays 8-bit pixel game sound effect when agent changes to complete
-- [ ] **CORE-07**: App plays 8-bit pixel game sound effect when agent changes to awaiting_approval
-- [ ] **CORE-08**: Sound effects respect system mute state
+- [x] **CORE-05**: App plays 8-bit pixel game sound effect when agent changes to in_progress
+- [x] **CORE-06**: App plays 8-bit pixel game sound effect when agent changes to complete
+- [x] **CORE-07**: App plays 8-bit pixel game sound effect when agent changes to awaiting_approval
+- [x] **CORE-08**: Sound effects respect system mute state
 
 ### Accessibility
 
@@ -84,20 +84,20 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DIUI-02 | Phase 3 | Pending |
 | DIUI-03 | Phase 3 | Pending |
 | DIUI-04 | Phase 3 | Pending |
-| STMG-01 | Phase 2 | Pending |
-| STMG-02 | Phase 1 | Pending |
+| STMG-01 | Phase 2 | Complete |
+| STMG-02 | Phase 1 | Complete |
 | STMG-03 | Phase 3 | Pending |
-| AGNT-01 | Phase 1 | Pending |
-| AGNT-02 | Phase 1 | Pending |
-| AGNT-03 | Phase 2 | Pending |
+| AGNT-01 | Phase 1 | Complete |
+| AGNT-02 | Phase 1 | Complete |
+| AGNT-03 | Phase 2 | Complete |
 | CORE-01 | Phase 3 | Pending |
 | CORE-02 | Phase 3 | Pending |
 | CORE-03 | Phase 4 | Pending |
 | CORE-04 | Phase 4 | Pending |
-| CORE-05 | Phase 2 | Pending |
-| CORE-06 | Phase 2 | Pending |
-| CORE-07 | Phase 2 | Pending |
-| CORE-08 | Phase 2 | Pending |
+| CORE-05 | Phase 2 | Complete |
+| CORE-06 | Phase 2 | Complete |
+| CORE-07 | Phase 2 | Complete |
+| CORE-08 | Phase 2 | Complete |
 | ACCS-01 | Phase 3 | Pending |
 | ACCS-02 | Phase 3 | Pending |
 | ACCS-03 | Phase 3 | Pending |
@@ -106,14 +106,15 @@ Which phases cover which requirements. Updated during roadmap creation.
 - v1 requirements: 20 total
 - Mapped to phases: 20
 - Unmapped: 0 ✓
+- Completed: 10/20 (50%)
 
 **Phase Distribution:**
-- Phase 1: 4 requirements (Data Layer Foundation)
-- Phase 2: 6 requirements (Main App Core)
-- Phase 3: 10 requirements (Dynamic Island Widget)
-- Phase 4: 2 requirements (Terminal Integration)
+- Phase 1: 4 requirements (Data Layer Foundation) - Complete ✓
+- Phase 2: 6 requirements (Main App Core) - Complete ✓
+- Phase 3: 10 requirements (Dynamic Island Widget) - Pending
+- Phase 4: 2 requirements (Terminal Integration) - Pending
 - Phase 5: 0 requirements (Polish & Deployment)
 
 ---
 *Requirements defined: 2026-04-02*
-*Last updated: 2026-04-02 after roadmap creation*
+*Last updated: 2026-04-02 after Phase 2 completion*
