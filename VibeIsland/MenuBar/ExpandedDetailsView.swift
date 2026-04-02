@@ -64,6 +64,11 @@ struct ExpandedDetailsView: View {
         .padding()
     }
 
+    // MARK: - 环境变量
+
+    /// 减少动画设置
+    @Environment(\.accessibilityReducedMotion) var reducedMotion
+
     // MARK: - 标题栏
 
     /// 标题栏
@@ -72,6 +77,7 @@ struct ExpandedDetailsView: View {
             Text("Vibe Island")
                 .font(.headline)
                 .foregroundColor(.primary)
+                .accessibilityAddTraits(.isHeader)
 
             Spacer()
 
@@ -83,6 +89,9 @@ struct ExpandedDetailsView: View {
             }
             .buttonStyle(.plain)
             .help("关闭")
+            .accessibilityLabel("关闭")
+            .accessibilityHint("关闭详细视图")
+            .accessibilityAddTraits(.isButton)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
@@ -103,6 +112,9 @@ struct ExpandedDetailsView: View {
                 }
             }
         }
+        .accessibilityLabel("代理列表")
+        .accessibilityHint("垂直滚动查看所有代理")
+        .animation(reducedMotion ? .none : .easeInOut(duration: 0.3), value: stateManager.agentStates.count)
     }
 
     /// 代理卡片
@@ -133,6 +145,10 @@ struct ExpandedDetailsView: View {
         }
         .padding(.vertical, 12)
         .padding(.horizontal, 16)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("代理 \(agent.id)，状态 \(agent.status.displayName)")
+        .accessibilityHint("标签页 \(agent.terminalTabId ?? "无")")
+        .accessibilityAddTraits(.isStaticText)
     }
 
     /// 状态圆点
@@ -169,6 +185,7 @@ struct ExpandedDetailsView: View {
             .padding(.vertical, 4)
             .background(statusColor(for: status))
             .clipShape(RoundedRectangle(cornerRadius: 6))
+            .accessibilityHidden(true)
     }
 
     // MARK: - 空状态视图
@@ -186,6 +203,8 @@ struct ExpandedDetailsView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.vertical, 32)
+        .accessibilityLabel("无活跃代理")
+        .accessibilityHint("当前没有运行中的 Claude Code 代理")
     }
 
     // MARK: - 页脚
@@ -197,6 +216,9 @@ struct ExpandedDetailsView: View {
             .foregroundColor(.secondary)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.vertical, 12)
+            .accessibilityLabel("共 \(stateManager.agentStates.count) 个代理")
+            .accessibilityAddTraits(.isStaticText)
+            .accessibilityHidden(stateManager.agentStates.isEmpty)
     }
 }
 

@@ -44,6 +44,10 @@ struct CompactStatusView: View {
             }
         }
         .padding(.horizontal, 4)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(accessibilityLabel)
+        .accessibilityHint("点击查看详情")
+        .accessibilityAddTraits(.isButton)
         .onAppear {
             setupNotifications()
         }
@@ -138,6 +142,41 @@ struct CompactStatusView: View {
             return .green
         }
         return .blue
+    }
+
+    /// 获取辅助功能标签
+    private var accessibilityLabel: String {
+        let count = stateManager.agentStates.count
+        var label = "Vibe Island 动态岛"
+
+        if count > 0 {
+            label += "，\(count) 个代理活跃"
+
+            // 添加状态摘要
+            let awaitingCount = stateManager.getAgentCount(for: .awaitingApproval)
+            let inProgressCount = stateManager.getAgentCount(for: .inProgress)
+            let completeCount = stateManager.getAgentCount(for: .complete)
+
+            var statusSummary: [String] = []
+
+            if awaitingCount > 0 {
+                statusSummary.append("\(awaitingCount) 个等待审批")
+            }
+            if inProgressCount > 0 {
+                statusSummary.append("\(inProgressCount) 个进行中")
+            }
+            if completeCount > 0 {
+                statusSummary.append("\(completeCount) 个已完成")
+            }
+
+            if !statusSummary.isEmpty {
+                label += "，" + statusSummary.joined(separator: "，")
+            }
+        } else {
+            label += "，无活跃代理"
+        }
+
+        return label
     }
 
     // MARK: - 通知处理
