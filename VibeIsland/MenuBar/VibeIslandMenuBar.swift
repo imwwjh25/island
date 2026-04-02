@@ -49,12 +49,41 @@ class MenuBarManager: ObservableObject {
     /// 处理状态变化通知
     /// - Parameter notification: 通知对象
     func handleStateChange(notification: Notification) {
-        guard let _ = notification.userInfo?["agentId"] as? String else {
+        guard let agentId = notification.userInfo?["agentId"] as? String,
+              let newStatusString = notification.userInfo?["newStatus"] as? String,
+              let newStatus = AgentStatus(rawValue: newStatusString),
+              let oldStatusString = notification.userInfo?["oldStatus"] as? String,
+              let oldStatus = AgentStatus(rawValue: oldStatusString) else {
             return
+        }
+
+        // 检查是否为需要视觉提示的状态
+        if shouldShowVisualPrompt(newStatus: newStatus, oldStatus: oldStatus) {
+            // 发布视觉提示通知
+            NotificationCenter.default.post(
+                name: .showVisualPrompt,
+                object: nil,
+                userInfo: ["status": newStatusString, "agentId": agentId]
+            )
+
+            print("🚀 显示视觉提示（代理：\(agentId)，状态：\(newStatus.displayName)）")
         }
 
         // 状态变化时触发 UI 更新
         objectWillChange.send()
+    }
+
+    /// 判断是否应该显示视觉提示
+    /// - Parameters:
+    ///   - newStatus: 新状态
+    ///   - oldStatus: 旧状态
+    /// - Returns: 是否显示视觉提示
+    private func shouldShowVisualPrompt(newStatus: AgentStatus, oldStatus: AgentStatus?) -> Bool {
+        // 检查是否为新代理（新代理不显示视觉提示，避免干扰）
+        guard oldStatus != nil else { return false }
+
+        // 检查是否为需要视觉提示的状态
+        return newStatus == .awaitingApproval || newStatus == .complete
     }
 }
 

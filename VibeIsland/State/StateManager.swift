@@ -244,4 +244,7 @@ extension Notification.Name {
 
     /// 代理状态清空通知
     static let agentStatesDidClear = Notification.Name("agentStatesDidClear")
+
+    /// 显示视觉提示通知
+    static let showVisualPrompt = Notification.Name("showVisualPrompt")
 }
