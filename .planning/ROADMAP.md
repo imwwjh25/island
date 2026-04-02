@@ -10,7 +10,7 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 
 ## Phases
 
-- [ ] **Phase 1: Data Layer Foundation** - App Groups, socket monitoring, and state persistence
+- [x] **Phase 1: Data Layer Foundation** - App Groups, socket monitoring, and state persistence ✅
 - [ ] **Phase 2: Main App Core** - Background monitoring, sound effects, and state detection
 - [ ] **Phase 3: Dynamic Island Widget** - UI rendering, auto-expansion, and accessibility
 - [ ] **Phase 4: Terminal Integration** - Terminal tab jumping for iTerm2 and Terminal.app
@@ -33,7 +33,9 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 4. Shared container is accessible to both main app and widget extension
 
 **Plans:** 1 plan
-- [ ] 01-data-layer-foundation-01-PLAN.md — 创建共享数据模型、状态管理器和套接字监控器
+- [x] 01-data-layer-foundation-01-PLAN.md — 创建共享数据模型、状态管理器和套接字监控器
+
+**Completed:** 2026-04-02
 
 ---
 
@@ -51,7 +53,8 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 3. Sound effects respect system mute state (no sound when muted)
 4. Widget reloads its timeline immediately after state change
 
-**Plans:** TBD
+**Plans:** 1 plan
+- [ ] 02-main-app-core-01-PLAN.md — 增强状态变化检测、实现音效系统、优化widget重新加载
 
 ---
 
@@ -121,13 +124,13 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Data Layer Foundation | 0/1 | Planning complete | - |
-| 2. Main App Core | 0/0 | Not started | - |
+| 1. Data Layer Foundation | 1/1 | Complete | 2026-04-02 |
+| 2. Main App Core | 0/1 | Ready for execution | - |
 | 3. Dynamic Island Widget | 0/0 | Not started | - |
 | 4. Terminal Integration | 0/0 | Not started | - |
 | 5. Polish & Deployment | 0/0 | Not started | - |
 
-**Overall Progress:** 0/5 phases complete
+**Overall Progress:** 1/5 phases complete
 
 ---
 
@@ -144,4 +147,4 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 ---
 
 *Roadmap created: 2026-04-02*
-*Last updated: 2026-04-02 - Phase 1 planning complete*
+*Last updated: 2026-04-02 - Phase 2 planned*
