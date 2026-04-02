@@ -11,7 +11,7 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 ## Phases
 
 - [x] **Phase 1: Data Layer Foundation** - App Groups, socket monitoring, and state persistence ✅
-- [ ] **Phase 2: Main App Core** - Background monitoring, sound effects, and state detection
+- [x] **Phase 2: Main App Core** - Background monitoring, sound effects, and state detection ✅
 - [ ] **Phase 3: Dynamic Island Widget** - UI rendering, auto-expansion, and accessibility
 - [ ] **Phase 4: Terminal Integration** - Terminal tab jumping for iTerm2 and Terminal.app
 - [ ] **Phase 5: Polish & Deployment** - Performance, App Store preparation, final testing
@@ -79,9 +79,14 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 8. Dynamic Island UI adapts to system appearance (light/dark mode)
 9. Dynamic Island UI respects reduced motion accessibility setting
 
-**Plans:** TBD
+**Plans:** 3 plans
+- [ ] 03-dynamic-island-widget-01-PLAN.md — 构建 MenuBarExtra UI（紧凑视图和展开视图）
+- [ ] 03-dynamic-island-widget-02-PLAN.md — 实现自动展开逻辑和视觉提示
+- [ ] 03-dynamic-island-widget-03-PLAN.md — 添加辅助功能支持（VoiceOver、深色模式、减少动画）
 
 **UI hint:** yes
+
+**Note:** 由于 macOS 没有 iOS 风格的 Dynamic Island，使用 MenuBarExtra + Popover 作为替代方案
 
 ---
 
@@ -128,7 +133,7 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 |-------|----------------|--------|-----------|
 | 1. Data Layer Foundation | 1/1 | Complete | 2026-04-02 |
 | 2. Main App Core | 1/1 | Complete | 2026-04-02 |
-| 3. Dynamic Island Widget | 0/0 | Not started | - |
+| 3. Dynamic Island Widget | 0/3 | Not started | - |
 | 4. Terminal Integration | 0/0 | Not started | - |
 | 5. Polish & Deployment | 0/0 | Not started | - |
 
@@ -147,6 +152,5 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 **Phase 4 (Integration) before Phase 5 (Polish):** All core features working before optimization and deployment preparation.
 
 ---
-
 *Roadmap created: 2026-04-02*
-*Last updated: 2026-04-02 - Phase 2 planned*
+*Last updated: 2026-04-02 - Phase 3 planned*
