@@ -284,8 +284,7 @@ struct ExpandedDetailsView: View {
     }
 }
 
-#Preview {
+#Preview(traits: .sizeThatFitsLayout) {
     ExpandedDetailsView()
-        .previewLayout(.fixed(width: 400, height: 500))
         .padding()
 }
