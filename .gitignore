@@ -1,0 +1,22 @@
+# Build artifacts
+.build/
+build/
+DerivedData/
+*.dSYM
+
+# IDE
+.idea/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+
+# OS
+.DS_Store
+*.swp
+*~
+
+# DMG (generated)
+*.dmg
+
+# Temporary files
+dmg-staging/
+tmp/
