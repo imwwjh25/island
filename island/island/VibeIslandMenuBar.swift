@@ -113,8 +113,8 @@ class MenuBarManager: ObservableObject {
             print("🚀 显示视觉提示（代理：\(agentId)，状态：\(newStatus.displayName)）")
         }
 
-        // 播放音效
-        soundManager.playStateChangeSound()
+        // 播放音效（根据状态类型）
+        soundManager.playStateChangeSound(for: newStatus)
 
         // 触发 widget 更新
         triggerWidgetUpdate(agentId: agentId)

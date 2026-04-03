@@ -9,6 +9,16 @@ import Foundation
 import AVFoundation
 import Combine
 
+/// 音效类型
+enum SoundType: String {
+    /// 开始/进行中
+    case inProgress = "start"
+    /// 等待审批
+    case awaitingApproval = "awaiting"
+    /// 完成
+    case complete = "complete"
+}
+
 /// 音效管理器
 /// 负责播放状态变化音效和检测系统静音状态
 class SoundManager {
@@ -20,22 +30,22 @@ class SoundManager {
 
     // MARK: - 常量
 
-    /// 音效文件名
-    private let soundFileName = "state_update.aiff"
+    /// 音效文件扩展名
+    private let soundFileExtension = "wav"
 
     /// UserDefaults 音效开关键
     private let soundEnabledKey = "soundEnabled"
 
     // MARK: - 属性
 
-    /// 音频播放器
-    private var audioPlayer: AVAudioPlayer?
+    /// 音频播放器字典（按类型存储）
+    private var audioPlayers: [SoundType: AVAudioPlayer] = [:]
 
     /// 音效是否启用
     @Published var isSoundEnabled: Bool = true
 
     /// 音效文件是否已加载
-    private var soundFileLoaded = false
+    private var soundFilesLoaded = false
 
     /// 上次播放时间（用于频率限制）
     private var lastPlayTime: Date?
@@ -50,13 +60,20 @@ class SoundManager {
         loadSoundEnabledSetting()
 
         // 加载音效文件
-        loadSoundFile()
+        loadSoundFiles()
     }
 
     // MARK: - 音效播放
 
-    /// 播放状态变化音效
+    /// 播放状态变化音效（通用方法，保持向后兼容）
     func playStateChangeSound() {
+        // 默认播放进行中音效
+        playSound(for: .inProgress)
+    }
+
+    /// 播放指定类型的音效
+    /// - Parameter type: 音效类型
+    func playSound(for type: SoundType) {
         // 检查音效是否启用
         guard isSoundEnabled else {
             return
@@ -76,7 +93,18 @@ class SoundManager {
         }
 
         // 检查音效文件是否已加载
-        guard soundFileLoaded, let player = audioPlayer else {
+        guard soundFilesLoaded, let player = audioPlayers[type] else {
+            // 如果指定类型的音效未加载，尝试使用备用音效
+            if let fallbackPlayer = audioPlayers[.inProgress] {
+                fallbackPlayer.currentTime = 0
+                do {
+                    try fallbackPlayer.play()
+                    lastPlayTime = Date()
+                    print("🔊 播放备用音效（类型：\(type.rawValue)）")
+                } catch {
+                    print("⚠️ 播放备用音效失败: \(error.localizedDescription)")
+                }
+            }
             return
         }
 
@@ -87,10 +115,25 @@ class SoundManager {
         do {
             try player.play()
             lastPlayTime = Date()
-            print("🔊 播放状态变化音效")
+            print("🔊 播放音效（类型：\(type.rawValue)）")
         } catch {
             print("⚠️ 播放音效失败: \(error.localizedDescription)")
         }
+    }
+
+    /// 根据代理状态播放对应音效
+    /// - Parameter status: 代理状态
+    func playStateChangeSound(for status: AgentStatus) {
+        let soundType: SoundType
+        switch status {
+        case .inProgress:
+            soundType = .inProgress
+        case .awaitingApproval:
+            soundType = .awaitingApproval
+        case .complete:
+            soundType = .complete
+        }
+        playSound(for: soundType)
     }
 
     // MARK: - 系统静音检测
@@ -154,28 +197,48 @@ class SoundManager {
 
     // MARK: - 音效文件加载
 
-    /// 加载音效文件
-    private func loadSoundFile() {
-        guard let soundURL = Bundle.main.url(forResource: "state_update", withExtension: "aiff") else {
-            print("⚠️ 音效文件未找到: \(soundFileName)")
-            soundFileLoaded = false
-            return
+    /// 加载所有音效文件
+    private func loadSoundFiles() {
+        var loadedCount = 0
+
+        for type in [SoundType.inProgress, SoundType.awaitingApproval, SoundType.complete] {
+            if let soundURL = Bundle.main.url(forResource: type.rawValue, withExtension: soundFileExtension) {
+                do {
+                    let player = try AVAudioPlayer(contentsOf: soundURL)
+                    player.prepareToPlay()
+                    audioPlayers[type] = player
+                    loadedCount += 1
+                    print("✅ 音效文件已加载: \(type.rawValue).\(soundFileExtension)")
+                } catch {
+                    print("⚠️ 加载音效文件失败: \(type.rawValue) - \(error.localizedDescription)")
+                }
+            } else {
+                print("⚠️ 音效文件未找到: \(type.rawValue).\(soundFileExtension)")
+            }
         }
 
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
-            audioPlayer?.prepareToPlay()
-            soundFileLoaded = true
-            print("✅ 音效文件已加载: \(soundFileName)")
-        } catch {
-            print("❌ 加载音效文件失败: \(error.localizedDescription)")
-            soundFileLoaded = false
+        soundFilesLoaded = loadedCount > 0
+
+        // 如果没有加载任何音效，尝试加载旧的 aiff 文件作为备用
+        if !soundFilesLoaded {
+            if let fallbackURL = Bundle.main.url(forResource: "state_update", withExtension: "aiff") {
+                do {
+                    let player = try AVAudioPlayer(contentsOf: fallbackURL)
+                    player.prepareToPlay()
+                    audioPlayers[.inProgress] = player
+                    soundFilesLoaded = true
+                    print("✅ 使用备用音效文件: state_update.aiff")
+                } catch {
+                    print("❌ 加载备用音效文件失败: \(error.localizedDescription)")
+                }
+            }
         }
     }
 
     /// 重新加载音效文件（用于测试）
-    func reloadSoundFile() {
-        loadSoundFile()
+    func reloadSoundFiles() {
+        audioPlayers.removeAll()
+        loadSoundFiles()
     }
 
     // MARK: - 持久化
