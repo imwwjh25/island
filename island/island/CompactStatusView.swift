@@ -53,35 +53,35 @@ struct CompactStatusView: View {
     private var statusIndicators: some View {
         let counts = getStatusCounts()
 
-        // 等待审批的代理（最高优先级）
+        // 等待审批的代理（最高优先级）- 品红色
         if counts.awaitingApproval > 0 {
-            statusDot(color: .orange, count: counts.awaitingApproval, isBlinking: isBlinking)
+            statusDot(color: Color(red: 1.0, green: 0.0, blue: 1.0), statusName: "等待审批", count: counts.awaitingApproval, isBlinking: isBlinking)
         }
 
-        // 进行中的代理
+        // 进行中的代理 - 青色
         if counts.inProgress > 0 {
-            statusDot(color: .blue, count: counts.inProgress, isBlinking: false)
+            statusDot(color: Color(red: 0.0, green: 1.0, blue: 1.0), statusName: "进行中", count: counts.inProgress, isBlinking: false)
         }
 
-        // 已完成的代理
+        // 已完成的代理 - 黄色
         if counts.complete > 0 {
-            statusDot(color: .green, count: counts.complete, isBlinking: false)
+            statusDot(color: Color(red: 1.0, green: 1.0, blue: 0.0), statusName: "已完成", count: counts.complete, isBlinking: false)
         }
 
-        // 空闲状态（无代理）
+        // 空闲状态（无代理）- 灰色
         if counts.total == 0 {
-            statusDot(color: .gray, count: 0, isBlinking: false)
+            statusDot(color: .gray, statusName: "空闲", count: 0, isBlinking: false)
         }
     }
 
     /// 状态圆点
     @ViewBuilder
-    private func statusDot(color: Color, count: Int, isBlinking: Bool) -> some View {
+    private func statusDot(color: Color, statusName: String, count: Int, isBlinking: Bool) -> some View {
         Circle()
             .fill(color)
-            .frame(width: isBlinking ? 10 : 8, height: isBlinking ? 10 : 8) // 闪烁时放大
+            .frame(width: isBlinking ? 10 : 8, height: isBlinking ? 10 : 8)
             .opacity(isBlinking ? 0.5 : 1.0)
-            .shadow(color: isBlinking ? color.opacity(0.6) : .clear, radius: isBlinking ? 4 : 0) // 闪烁时发光
+            .shadow(color: isBlinking ? color.opacity(0.6) : .clear, radius: isBlinking ? 4 : 0)
             .animation(
                 isBlinking && !reducedMotion
                     ? Animation.easeInOut(duration: 0.4).repeatForever(autoreverses: true)
@@ -97,7 +97,7 @@ struct CompactStatusView: View {
                     }
                 }
             )
-            .accessibilityLabel("\(color == .orange ? "等待审批" : color == .blue ? "进行中" : color == .green ? "已完成" : "空闲")\(count > 1 ? ", \(count) 个" : "")")
+            .accessibilityLabel("\(statusName)\(count > 1 ? ", \(count) 个" : "")")
     }
 
     /// 代理数量徽章
