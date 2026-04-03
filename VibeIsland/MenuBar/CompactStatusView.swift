@@ -13,11 +13,11 @@ import Combine
 struct CompactStatusView: View {
     // MARK: - 属性
 
-    /// 状态管理器
-    @ObservedObject private var stateManager = StateManager.shared
+    /// 状态管理器 - 从环境接收，不重新初始化
+    @EnvironmentObject var stateManager: StateManager
 
-    /// 菜单栏管理器
-    @ObservedObject private var menuBarManager = MenuBarManager.shared
+    /// 菜单栏管理器 - 从环境接收，不重新初始化
+    @EnvironmentObject var menuBarManager: MenuBarManager
 
     /// 是否有新的重要状态（用于视觉提示）
     @State private var hasNewImportantState = false
@@ -26,10 +26,7 @@ struct CompactStatusView: View {
     @State private var isBlinking = false
 
     /// 减少动画设置
-    @Environment(\.accessibilityReducedMotion) var reducedMotion
-
-    /// 订阅集合
-    private var cancellables = Set<AnyCancellable>()
+    @Environment(\.accessibilityReduceMotion) private var reducedMotion
 
     // MARK: - Body
 
@@ -41,6 +38,11 @@ struct CompactStatusView: View {
             // 代理数量徽章
             if !stateManager.agentStates.isEmpty {
                 agentCountBadge
+            } else {
+                // 调试：显示检测状态
+                Text("○")
+                    .font(.system(size: 8))
+                    .foregroundColor(.gray)
             }
         }
         .padding(.horizontal, 4)
@@ -183,12 +185,7 @@ struct CompactStatusView: View {
 
     /// 设置通知监听
     private func setupNotifications() {
-        // 监听状态变化通知
-        NotificationCenter.default.publisher(for: .agentStateDidChange)
-            .sink { [weak self] _ in
-                self?.objectWillChange.send()
-            }
-            .store(in: &cancellables)
+        // 通知监听已在 onReceive 中处理
     }
 
     /// 显示视觉提示
@@ -205,10 +202,6 @@ struct CompactStatusView: View {
             isBlinking = false
         }
     }
-
-    // MARK: - 订阅集合
-
-    private var cancellables = Set<AnyCancellable>()
 }
 
 #Preview {

@@ -12,11 +12,11 @@ import SwiftUI
 struct ExpandedDetailsView: View {
     // MARK: - 属性
 
-    /// 状态管理器
-    @ObservedObject private var stateManager = StateManager.shared
+    /// 状态管理器 - 从环境接收，不重新初始化
+    @EnvironmentObject var stateManager: StateManager
 
-    /// 菜单栏管理器
-    @ObservedObject private var menuBarManager = MenuBarManager.shared
+    /// 菜单栏管理器 - 从环境接收，不重新初始化
+    @EnvironmentObject var menuBarManager: MenuBarManager
 
     /// Popover 最小宽度
     private let minWidth: CGFloat = 280
@@ -80,7 +80,7 @@ struct ExpandedDetailsView: View {
     // MARK: - 环境变量
 
     /// 减少动画设置
-    @Environment(\.accessibilityReducedMotion) var reducedMotion
+    @Environment(\.accessibilityReduceMotion) private var reducedMotion
 
     // MARK: - 标题栏
 
@@ -262,6 +262,33 @@ struct ExpandedDetailsView: View {
             Text("无活跃代理")
                 .font(.body)
                 .foregroundColor(.secondary)
+
+            // 调试信息
+            VStack(spacing: 4) {
+                Text("进程监控运行中...")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+
+                Text("每 3 秒自动检测 Claude Code 进程")
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
+
+                Button("手动检测") {
+                    ProcessMonitor.shared.manualCheck()
+                    // 延迟刷新 UI
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        // 触发 UI 刷新
+                    }
+                }
+                .buttonStyle(.bordered)
+                .padding(.top, 8)
+
+                // 显示当前检测到的数量
+                Text("已检测: \(stateManager.agentStates.count) 个会话")
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
+                    .padding(.top, 4)
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.vertical, 32)
