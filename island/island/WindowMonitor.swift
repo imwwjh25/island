@@ -186,8 +186,6 @@ class WindowMonitor {
         // - "claude@xxx:~$"
         // - 包含 "agent" 关键字
 
-        let lowercasedTitle = title.lowercased()
-
         // 检测是否是 Claude Code 会话
         guard isClaudeCodeSession(title) else {
             return
@@ -266,28 +264,81 @@ class WindowMonitor {
     }
 
     /// 从标题检测状态
+    /// 检测优先级: 错误 > 等待审批 > 完成 > 进行中
     private func detectStatus(from title: String) -> AgentStatus {
         let lowercased = title.lowercased()
 
-        // 检测等待审批状态
-        if lowercased.contains("awaiting") ||
-           lowercased.contains("approval") ||
-           lowercased.contains("waiting") ||
-           lowercased.contains("confirm") ||
-           lowercased.contains("y/n") ||
-           lowercased.contains("?") {
+        // 1. 检测错误状态（最高优先级）
+        if lowercased.contains("error") ||
+           lowercased.contains("failed") ||
+           lowercased.contains("unable to") ||
+           lowercased.contains("exception") ||
+           lowercased.contains("fatal") {
+            // 如果同时包含等待关键词，可能是在等待用户处理错误
+            if lowercased.contains("awaiting") || lowercased.contains("waiting") {
+                return .awaitingApproval
+            }
+            // 错误状态视为等待审批（需要用户介入）
             return .awaitingApproval
         }
 
-        // 检测完成状态
-        if lowercased.contains("complete") ||
-           lowercased.contains("done") ||
-           lowercased.contains("finished") ||
-           lowercased.contains("success") {
-            return .complete
+        // 2. 检测等待审批状态（排除 "thinking..." 等误判）
+        // 明确的等待审批关键词
+        let awaitingKeywords = [
+            "awaiting your approval",
+            "awaiting approval",
+            "waiting for approval",
+            "waiting for input",
+            "waiting for confirmation",
+            "needs approval",
+            "requires approval",
+            "please confirm",
+            "y/n",
+            "yes/no",
+            "approve?",
+            "confirm?"
+        ]
+
+        for keyword in awaitingKeywords {
+            if lowercased.contains(keyword) {
+                return .awaitingApproval
+            }
         }
 
-        // 默认为进行中
+        // 检测问号结尾的提示（但排除 "thinking?" 等内部状态）
+        // 只在标题包含明确的交互提示词时才判定为等待审批
+        if lowercased.contains("?") {
+            let promptIndicators = ["?", "y/n", "yes/no", "choose", "select", "which", "would you"]
+            for indicator in promptIndicators {
+                if lowercased.contains(indicator) {
+                    // 确保不是内部思考状态
+                    if !lowercased.contains("thinking") && !lowercased.contains("processing") {
+                        return .awaitingApproval
+                    }
+                }
+            }
+        }
+
+        // 3. 检测完成状态
+        let completeKeywords = [
+            "complete!",
+            "completed",
+            "done!",
+            "task complete",
+            "task finished",
+            "successfully",
+            "success!",
+            "finished",
+            "all done"
+        ]
+
+        for keyword in completeKeywords {
+            if lowercased.contains(keyword) {
+                return .complete
+            }
+        }
+
+        // 4. 默认为进行中
         return .inProgress
     }
 
