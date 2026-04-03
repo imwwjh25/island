@@ -105,8 +105,10 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 4. App provides feedback when terminal integration fails gracefully
 
 **Plans:** 2 plans
-- [ ] 04-terminal-integration-01-PLAN.md — 创建 TerminalController 终端控制器（Wave 1）
-- [ ] 04-terminal-integration-02-PLAN.md — 在 ExpandedDetailsView 中添加点击交互和错误反馈（Wave 2）
+- [x] 04-terminal-integration-01-PLAN.md — 创建 TerminalController 终端控制器
+- [x] 04-terminal-integration-02-PLAN.md — 在 ExpandedDetailsView 中添加点击交互和错误反馈
+
+**Completed:** 2026-04-03
 
 ---
 
@@ -135,9 +137,11 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 
 ---
 
-### 🚧 v2.0 kpbl (In Progress)
+### ✅ v2.0 kpbl (Complete)
 
 **Milestone Goal:** 菜单栏 UI 和状态检测向商业版功能靠近，实现动态图标、增强检测和差异化音效
+
+**Completed:** 2026-04-03
 
 #### Phase 6: Infrastructure Fixes
 
@@ -153,7 +157,11 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 3. App requests Accessibility permission at launch and handles denial gracefully
 4. User sees clear guidance when Accessibility permission is not granted
 
-**Plans:** TBD
+**Plans:** 2 plans
+- [x] 06-01-PLAN.md — 修复 @StateObject 单例状态管理和 AccessibilityManager 集成
+- [x] 06-02-PLAN.md — 配置 macOS audio session 和音效播放修复
+
+**Completed:** 2026-04-03
 
 ---
 
@@ -172,9 +180,12 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 4. User sees cyberpunk neon colors for status (cyan in_progress, magenta awaiting, yellow complete)
 5. User with reduced motion preference sees static alternatives to animations
 
-**Plans:** TBD
+**Plans:** 1 plan
+- [x] 07-dynamic-menu-bar-icon-01-PLAN.md — CompactStatusView 作为 MenuBarExtra label，动画和赛博朋克配色
 
 **UI hint:** yes
+
+**Completed:** 2026-04-03
 
 ---
 
@@ -191,7 +202,10 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 2. System detects status changes within 3 seconds of actual state change
 3. System shows reduced false positives in status detection compared to v1.0
 
-**Plans:** TBD
+**Plans:** 1 plan
+- [x] 08-enhanced-status-detection-01-PLAN.md — 优先级检测顺序、错误状态处理、关键词精确匹配
+
+**Completed:** 2026-04-03
 
 ---
 
@@ -208,7 +222,10 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 2. Sound effects are silenced when system mute is on
 3. User can enable/disable sound effects via preferences
 
-**Plans:** TBD
+**Plans:** 1 plan
+- [x] 09-differentiated-sound-01-PLAN.md — SoundType 枚举、多音效文件、状态对应播放
+
+**Completed:** 2026-04-03
 
 ---
 
@@ -222,14 +239,14 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 1. Data Layer Foundation | v1.0 | 1/1 | Complete | 2026-04-02 |
 | 2. Main App Core | v1.0 | 1/1 | Complete | 2026-04-02 |
 | 3. Dynamic Island Widget | v1.0 | 4/4 | Complete | 2026-04-02 |
-| 4. Terminal Integration | v1.0 | 0/2 | Not started | - |
+| 4. Terminal Integration | v1.0 | 2/2 | Complete | 2026-04-03 |
 | 5. Polish & Deployment | v1.0 | 1/2 | In progress | - |
-| 6. Infrastructure Fixes | v2.0 | 0/TBD | Not started | - |
-| 7. Dynamic Menu Bar Icon | v2.0 | 0/TBD | Not started | - |
-| 8. Enhanced Status Detection | v2.0 | 0/TBD | Not started | - |
-| 9. Differentiated Sound System | v2.0 | 0/TBD | Not started | - |
+| 6. Infrastructure Fixes | v2.0 | 2/2 | Complete | 2026-04-03 |
+| 7. Dynamic Menu Bar Icon | v2.0 | 1/1 | Complete | 2026-04-03 |
+| 8. Enhanced Status Detection | v2.0 | 1/1 | Complete | 2026-04-03 |
+| 9. Differentiated Sound System | v2.0 | 1/1 | Complete | 2026-04-03 |
 
-**Overall Progress:** 6/9+ phases (v1.0 MVP + v2.0 kpbl)
+**Overall Progress:** 8/9 phases (v1.0 MVP + v2.0 kpbl 完成)
 
 ---
 
@@ -257,4 +274,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 
 ---
 *Roadmap created: 2026-04-02*
-*Last updated: 2026-04-03 - Added v2.0 kpbl milestone phases 6-9*
+*Last updated: 2026-04-03 - v2.0 kpbl milestone complete (phases 6-9)*
