@@ -1,8 +1,20 @@
-# Vibe Island
+# Vibe Island (kpbl)
 
 ## What This Is
 
 Vibe Island is a macOS Dynamic Island app that displays real-time status of Claude Code agents running in parallel. It shows all your active agent conversations in one glance, expanding automatically when you need to take action or a task completes.
+
+**Project Code:** `kpbl` — 自用版本迭代代号，用于区分 MVP 版本
+
+## Current Milestone: v2.0 kpbl
+
+**Goal:** 自用版本迭代，菜单栏UI和状态检测向商业版功能靠近
+
+**Target features:**
+- 菜单栏图标动态化（状态圆点 + 数量徽章 + 闪烁提示）
+- 状态检测增强（更多状态类型，更精确识别）
+- 终端跳转优化（改进标签页识别）
+- 音效提示系统（状态变化音效）
 
 ## Core Value
 
@@ -17,9 +29,13 @@ Never lose track of which agent conversation needs your attention — see all ag
 - [x] Visual prompts when agent needs approval or completes - Validated in Phase 3
 - [x] 8-bit pixel game sound effects for all state changes - Validated in Phase 2
 
-### Active
+### Active (v2.0 kpbl)
 
-- [ ] Click agent card to jump to corresponding terminal tab - Phase 4
+- [ ] 菜单栏图标动态显示（状态圆点 + 数量徽章）
+- [ ] 闪烁提示效果（重要状态变化时）
+- [ ] 状态检测增强（识别更多状态类型）
+- [ ] 终端跳转优化（改进标签页识别机制）
+- [ ] 音效提示系统（状态变化音效）
 
 ### Out of Scope
 
@@ -71,4 +87,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-02 after Phase 3 completion*
+*Last updated: 2026-04-03 after v2.0 kpbl milestone started*
