@@ -2,20 +2,20 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-last_updated: "2026-04-02T14:20:27.509Z"
+status: completed
+last_updated: "2026-04-03T14:57:00.000Z"
 progress:
   total_phases: 5
-  completed_phases: 4
+  completed_phases: 5
   total_plans: 11
-  completed_plans: 10
-  percent: 91
+  completed_plans: 11
+  percent: 100
 ---
 
 # Project State: Vibe Island
 
 **Started:** 2026-04-02
-**Current Status:** Phase 5 In Execution
+**Current Status:** Phase 5 COMPLETED ✅
 
 ---
 
@@ -23,7 +23,7 @@ progress:
 
 **Core Value:** Never lose track of which agent conversation needs your attention — see all agent states in one glance without switching terminals
 
-**Current Focus:** Phase 05 — polish-deployment
+**Current Focus:** Phase 05 — polish-deployment (COMPLETED)
 
 **Platform:** macOS 14+
 **Agent Support:** Claude Code only (MVP)
@@ -32,14 +32,14 @@ progress:
 
 ## Current Position
 
-Phase: 05 (polish-deployment) — EXECUTING
+Phase: 05 (polish-deployment) — ✅ COMPLETED
 Plan: 2 of 2
 **Phase:** 5
 **Plan:** 2 of 2
-**Status:** Executing Phase 05
-**Progress:** [█████████░] 91%
+**Status:** Phase 05 Completed
+**Progress:** [██████████] 100%
 
-**Current Phase Goal:** 完善应用并准备部署
+**Current Phase Goal:** 完善应用并准备部署 ✅
 
 ---
 
@@ -75,10 +75,10 @@ Plan: 2 of 2
 
 **Phase 5: Polish & Deployment**
 
-- Duration: ~2 minutes (Plan 01)
-- Tasks completed: 3/3
-- Files created: 3 (Info.plist, Entitlements, BUILD.md)
-- Features: Xcode project configuration, build documentation
+- Duration: ~1 hour
+- Tasks completed: 6/6 (Plan 01: 3, Plan 02: 3)
+- Files created: 5 (Info.plist, Entitlements, BUILD.md, DMG, SUMMARY)
+- Features: Xcode project configuration, DMG installer
 
 ---
 
@@ -131,68 +131,85 @@ Plan: 2 of 2
 
 ---
 
+## Deliverables
+
+### DMG Installer
+
+**File:** `/Users/Zhuanz/island/island/VibeIsland-1.0.0.dmg`
+
+**Size:** 145KB
+
+**Contents:**
+- island.app - 菜单栏状态监控应用
+- Applications 符号链接 - 方便拖拽安装
+- README.txt - 安装说明
+
+**Installation:**
+```bash
+open /Users/Zhuanz/island/island/VibeIsland-1.0.0.dmg
+# 拖拽 island.app 到 Applications 文件夹
+```
+
+### Source Code Location
+
+**Xcode Project:** `/Users/Zhuanz/island/island/island.xcodeproj`
+
+**Source Files:**
+- `island/VibeIslandMenuBar.swift` - 应用入口点和菜单栏管理
+- `island/CompactStatusView.swift` - 紧凑状态视图
+- `island/ExpandedDetailsView.swift` - 展开详细视图
+- `island/StateManager.swift` - 状态管理器
+- `island/SocketMonitor.swift` - 套接字监控器
+- `island/SoundManager.swift` - 音效管理器
+- `island/TerminalController.swift` - 终端控制器
+- `island/AgentState.swift` - 数据模型
+- `island/SharedContainer.swift` - 共享容器
+
+---
+
 ## Session Continuity
 
 ### Last Session
 
-**Date:** 2026-04-02
+**Date:** 2026-04-03
 **Work Completed:**
 
-- Phase 3 全部 4 个计划完成
-- Wave 0: 创建测试基础设施（5 个测试文件）
-- Wave 1: 构建 MenuBarExtra UI（VibeIslandMenuBar、CompactStatusView、ExpandedDetailsView）
-- Wave 2: 实现视觉提示功能（闪烁、颜色变化、徽章）
-- Wave 3: 添加辅助功能支持（VoiceOver、减少动画、深色/浅色模式）
+- Phase 5 Plan 02 完成
+- 修复了 Xcode 项目配置问题
+- 修复了多个编译错误
+- 成功构建 Release 版本
+- 创建了 DMG 安装包
 
 **Technical Decisions:**
 
-- 使用 MenuBarExtra 替代 Dynamic Island（macOS 不支持 iOS 风格的 Dynamic Island）
-- 视觉提示替代自动展开（MenuBarExtra 不支持程序化展开 popover）
-- 所有颜色使用系统语义颜色，自动适配深色/浅色模式
-- 完整的 VoiceOver 标签和提示，符合 Apple 辅助功能指南
-- 使用现有的 VibeIslandMenuBar.swift 作为应用入口点，无需创建单独的 VibeIslandApp.swift（Phase 5）
+- 使用 MenuBarManager class 管理所有 Combine 订阅
+- 条件导入 WidgetKit 在文件顶部
+- 使用 NSError 替代 NWError.readEOF 检查
 
 **Files Created/Modified:**
 
-- VibeIsland/MenuBar/VibeIslandMenuBar.swift (重构为 MenuBarExtra)
-- VibeIsland/MenuBar/CompactStatusView.swift (新建)
-- VibeIsland/MenuBar/ExpandedDetailsView.swift (新建)
-- VibeIsland/State/StateManager.swift (添加 showVisualPrompt 通知)
-- VibeIslandTests/MenuBarManagerTests.swift (新建)
-- VibeIslandTests/CompactStatusViewTests.swift (新建)
-- VibeIslandTests/ExpandedDetailsViewTests.swift (新建)
-- VibeIslandTests/AccessibilityTests.swift (新建)
-- VibeIslandTests/VibeIslandMenuBarTests.swift (新建)
+- island/VibeIslandMenuBar.swift (重构)
+- island/CompactStatusView.swift (修复)
+- island/ExpandedDetailsView.swift (修复)
+- island/SocketMonitor.swift (修复)
+- island/StateManager.swift (复制)
+- VibeIsland-1.0.0.dmg (创建)
 
-**Requirements Completed:**
+### Next Steps
 
-- DIUI-01: 用户看到包含代理数量和状态摘要的紧凑状态
-- DIUI-02: 用户可以点击 MenuBarExtra 展开到详细视图
-- DIUI-03: 用户看到紧凑和展开状态之间的平滑动画
-- DIUI-04: 用户可以点击背景折叠展开视图
-- CORE-01: 当代理需要审批时显示视觉提示
-- CORE-02: 当代理完成时显示视觉提示
-- ACCS-01: VoiceOver 正确播报内容
-- ACCS-02: UI 适应系统外观（深色/浅色模式）
-- ACCS-03: UI 尊重减少动作辅助功能设置
+**User Verification Required:**
+1. 安装应用并测试基本功能
+2. 验证菜单栏显示正常
+3. 验证代理状态监控功能
+4. 验证终端跳转功能（如果有 Claude Code 运行）
 
-### Next Session
-
-**Recommended starting point:** `/gsd:execute-phase 5` (继续 Plan 02)
-
-**Context to carry forward:**
-
-- Phase 5 Plan 01 已完成：创建了 Xcode 项目配置文件和构建文档
-- Info.plist 和 Entitlements 已配置完成
-- BUILD.md 提供完整的 Xcode 项目创建指南
-- 应用入口点已存在于 VibeIslandMenuBar.swift
-
-**Phase 5 Status:**
-
-- `05-polish-deployment-01` - 创建 Xcode 项目配置 (已完成)
-- `05-polish-deployment-02` - 创建 DMG 安装包和应用签名配置 (待执行)
+**Future Enhancements (v2):**
+- 添加更多终端支持（WezTerm）
+- 添加活动历史记录
+- 添加优先级指示器
+- 支持更多代理类型
 
 ---
 
 *State initialized: 2026-04-02*
-*Last updated: 2026-04-02 - Phase 5 Plan 01 完成：Xcode 项目配置*
+*Last updated: 2026-04-03 - Phase 5 完成：DMG 安装包创建成功*

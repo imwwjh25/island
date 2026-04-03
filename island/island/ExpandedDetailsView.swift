@@ -80,7 +80,7 @@ struct ExpandedDetailsView: View {
     // MARK: - 环境变量
 
     /// 减少动画设置
-    @Environment(\.accessibilityReducedMotion) var reducedMotion
+    @Environment(\.accessibilityReduceMotion) var reducedMotion
 
     // MARK: - 标题栏
 
