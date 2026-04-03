@@ -79,9 +79,15 @@ struct CompactStatusView: View {
     private func statusDot(color: Color, count: Int, isBlinking: Bool) -> some View {
         Circle()
             .fill(color)
-            .frame(width: 8, height: 8)
-            .opacity(isBlinking ? 0.3 : 1.0)
-            .animation(isBlinking && !reducedMotion ? .easeInOut(duration: 0.5).repeatForever(autoreverses: true) : .default, value: isBlinking)
+            .frame(width: isBlinking ? 10 : 8, height: isBlinking ? 10 : 8) // 闪烁时放大
+            .opacity(isBlinking ? 0.5 : 1.0)
+            .shadow(color: isBlinking ? color.opacity(0.6) : .clear, radius: isBlinking ? 4 : 0) // 闪烁时发光
+            .animation(
+                isBlinking && !reducedMotion
+                    ? Animation.easeInOut(duration: 0.4).repeatForever(autoreverses: true)
+                    : .easeInOut(duration: 0.25),
+                value: isBlinking
+            )
             .overlay(
                 Group {
                     if count > 1 {
@@ -147,11 +153,26 @@ struct CompactStatusView: View {
     private func showVisualPrompt(notification: Notification) {
         guard reducedMotion == false else { return }
 
+        // 获取状态信息
+        let statusString = notification.userInfo?["status"] as? String
+        let status = AgentStatus(rawValue: statusString ?? "")
+
+        // 根据状态调整闪烁时长
+        let blinkDuration: TimeInterval
+        switch status {
+        case .awaitingApproval:
+            blinkDuration = 5.0 // 等待审批需要更长提醒
+        case .complete:
+            blinkDuration = 2.0 // 完成短暂提醒
+        default:
+            blinkDuration = 3.0
+        }
+
         hasNewImportantState = true
         isBlinking = true
 
-        // 3 秒后重置
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+        // 重置闪烁
+        DispatchQueue.main.asyncAfter(deadline: .now() + blinkDuration) {
             hasNewImportantState = false
             isBlinking = false
         }
