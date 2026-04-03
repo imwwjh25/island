@@ -3,27 +3,29 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: kpbl
 status: planning
-last_updated: "2026-04-03T15:45:00.000Z"
+last_updated: "2026-04-03T16:30:00.000Z"
 progress:
-  total_phases: 0
-  completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
-  percent: 0
+  total_phases: 9
+  completed_phases: 3
+  total_plans: 11
+  completed_plans: 6
+  percent: 55
 ---
 
-# Project State: Vibe Island (kpbl)
+# Project State: Vibe Island
 
-**Started:** 2026-04-03
-**Current Status:** Defining requirements
+**Started:** 2026-04-02
+**Current Status:** v2.0 kpbl milestone - Roadmap created, ready for Phase 4 or Phase 6
 
 ---
 
 ## Project Reference
 
+See: .planning/PROJECT.md (updated 2026-04-03)
+
 **Core Value:** Never lose track of which agent conversation needs your attention — see all agent states in one glance without switching terminals
 
-**Current Focus:** Milestone v2.0 kpbl — 自用版本迭代
+**Current Focus:** v2.0 kpbl milestone — Infrastructure fixes, dynamic icon, enhanced detection, sound system
 
 **Platform:** macOS 14+
 **Agent Support:** Claude Code only
@@ -33,61 +35,91 @@ progress:
 
 ## Current Position
 
-Phase: Not started (defining requirements)
+Phase: 4 of 9 (v1.0 Terminal Integration) or Phase 6 of 9 (v2.0 Infrastructure Fixes)
 Plan: —
-Status: Defining requirements
-Last activity: 2026-04-03 — Milestone v2.0 kpbl started
+Status: Planning complete, awaiting phase selection
+Last activity: 2026-04-03 — v2.0 kpbl roadmap created with phases 6-9
+
+Progress: [████████░░] 55% (6/11 plans complete)
+
+---
+
+## Performance Metrics
+
+**Velocity:**
+- Total plans completed: 6
+- Average duration: ~30 min (estimated)
+- Total execution time: ~3 hours (estimated)
+
+**By Phase:**
+
+| Phase | Plans | Total | Status |
+|-------|-------|-------|--------|
+| 1. Data Layer Foundation | 1 | ~30 min | Complete |
+| 2. Main App Core | 1 | ~30 min | Complete |
+| 3. Dynamic Island Widget | 4 | ~2 hrs | Complete |
+| 4. Terminal Integration | 0 | - | Not started |
+| 5. Polish & Deployment | 1 | ~30 min | In progress |
+
+**Recent Trend:**
+- Last 3 plans: Stable execution
+- Trend: Stable
 
 ---
 
 ## Accumulated Context (from v1.0 MVP)
 
-### Architecture Decisions
+### Decisions
 
-**Two-target architecture confirmed:**
-- Main App: Background monitoring service (socket, state management, system integration)
-- Widget Extension: Dynamic Island UI rendering only
+Recent decisions logged in PROJECT.md:
 
-**Technology stack:**
-- Swift 5.9+ (required for modern macOS APIs)
-- SwiftUI + WidgetKit (Dynamic Island support via TimelineProvider)
-- Network framework (NWConnection) for socket communication
-- App Groups for inter-process data sharing
-- AppKit for terminal control (where SwiftUI insufficient)
+- **Phase 3:** MenuBarExtra used instead of iOS Dynamic Island (macOS limitation)
+- **Phase 3:** Visual prompts replace auto-expand (MenuBarExtra API constraint)
+- **Phase 3:** Semantic colors for accessibility (Apple compliance)
+- **v2.0 Planning:** Infrastructure fixes before feature development (critical bug prevention)
 
 ### Key Technical Constraints
 
-- **WidgetKit update latency:** WidgetKit doesn't provide real-time updates. Must use TimelineEntry.relevance and reloadTimelines() on state changes.
-- **App Groups requirement:** Main app and widget cannot share data without proper App Groups setup.
-- **Socket robustness:** Must implement exponential backoff for reconnection, handle errors gracefully.
-- **Terminal variability:** iTerm2 and Terminal.app have different AppleScript dictionaries; support must handle both.
-- **AppleScript integration:** Terminal control uses NSAppleScript to execute AppleScript commands for tab switching.
+- **WidgetKit update latency:** Not real-time, use TimelineEntry.relevance and reloadTimelines()
+- **App Groups requirement:** Mandatory for main app + widget data sharing
+- **Socket robustness:** Exponential backoff for reconnection
+- **Terminal variability:** iTerm2 and Terminal.app have different AppleScript dictionaries
+- **@ObservedObject singleton issue:** Must use @StateObject or static access (FIX-01)
+- **AVAudioSession for menu bar:** Must configure for LSUIElement apps (FIX-02)
+- **Accessibility permissions:** Required for AXUIElement window detection (FIX-03)
 
-### v1.0 MVP Deliverables
+### Pending Todos
 
-**DMG Installer:** `/Users/Zhuanz/island/island/VibeIsland-1.0.0.dmg`
-**Xcode Project:** `/Users/Zhuanz/island/island/island.xcodeproj`
+None.
+
+### Blockers/Concerns
+
+None currently.
+
+---
+
+## v2.0 kpbl Phase Summary
+
+| Phase | Goal | Requirements | Key Deliverable |
+|-------|------|--------------|-----------------|
+| 6. Infrastructure Fixes | Fix foundation issues | FIX-01, FIX-02, FIX-03 | Stable state, audio, permissions |
+| 7. Dynamic Menu Bar Icon | Status at a glance | MENUBAR-01~05 | Dynamic icon with neon colors |
+| 8. Enhanced Status Detection | Better accuracy | STATUS-01~03 | 3s detection, fewer false positives |
+| 9. Differentiated Sound System | Distinct audio cues | SOUND-01~03 | Different sounds per state |
 
 ---
 
-## v2.0 kpbl Context
+## Session Continuity
 
-### 商业版 vs 自用版差距分析
+Last session: 2026-04-03 16:30
+Stopped at: v2.0 kpbl roadmap created
+Resume file: None
 
-| 功能模块 | 商业版 | 自用版当前 | 差距程度 |
-|----------|--------|------------|----------|
-| **数据来源** | Socket JSON实时推送 | 进程+窗口推断 | 🔴 核心差距 |
-| **菜单栏图标** | 动态圆点+徽章 | 固定"sparkles" | 🔴 显著差距 |
-| **状态精度** | 8种精确状态 | 3种粗略状态 | 🟡 中等差距 |
-| **终端跳转** | 精确tabId跳转 | 无法精确跳转 | 🟡 中等差距 |
-| **音效系统** | ✅ 完整 | ❌ 无 | 🟢 可选功能 |
-
-### 自用版特点
-
-- 不依赖服务端，独立运行
-- 通过进程检测(sysctl)和窗口标题解析推断状态
-- 更轻量，但精度较低
+**Next Steps:**
+1. Complete Phase 4 (Terminal Integration) if needed for v1.0
+2. OR start Phase 6 (Infrastructure Fixes) for v2.0
+3. Use `/gsd:plan-phase 6` to begin planning Phase 6
 
 ---
-*State initialized: 2026-04-03*
-*Last updated: 2026-04-03 — Milestone v2.0 kpbl started*
+*State initialized: 2026-04-02*
+*Last updated: 2026-04-03 — v2.0 kpbl roadmap created*

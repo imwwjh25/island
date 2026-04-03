@@ -153,26 +153,46 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| MENUBAR-01 | Phase 6 | Pending |
-| MENUBAR-02 | Phase 6 | Pending |
-| MENUBAR-03 | Phase 6 | Pending |
-| MENUBAR-04 | Phase 6 | Pending |
-| MENUBAR-05 | Phase 6 | Pending |
-| STATUS-01 | Phase 7 | Pending |
-| STATUS-02 | Phase 7 | Pending |
-| STATUS-03 | Phase 7 | Pending |
-| SOUND-01 | Phase 8 | Pending |
-| SOUND-02 | Phase 8 | Pending |
-| SOUND-03 | Phase 8 | Pending |
 | FIX-01 | Phase 6 | Pending |
-| FIX-02 | Phase 8 | Pending |
-| FIX-03 | Phase 7 | Pending |
+| FIX-02 | Phase 6 | Pending |
+| FIX-03 | Phase 6 | Pending |
+| MENUBAR-01 | Phase 7 | Pending |
+| MENUBAR-02 | Phase 7 | Pending |
+| MENUBAR-03 | Phase 7 | Pending |
+| MENUBAR-04 | Phase 7 | Pending |
+| MENUBAR-05 | Phase 7 | Pending |
+| STATUS-01 | Phase 8 | Pending |
+| STATUS-02 | Phase 8 | Pending |
+| STATUS-03 | Phase 8 | Pending |
+| SOUND-01 | Phase 9 | Pending |
+| SOUND-02 | Phase 9 | Pending |
+| SOUND-03 | Phase 9 | Pending |
 
 **Coverage:**
+- v1.0 requirements: 21 total, 18 complete, 3 pending (Phase 4-5)
 - v2.0 requirements: 14 total
 - Mapped to phases: 14
 - Unmapped: 0 ✓
 
 ---
+
+## Phase-Requirement Summary
+
+### v2.0 Phase Mapping Rationale
+
+| Phase | Requirements | Rationale |
+|-------|--------------|-----------|
+| Phase 6: Infrastructure Fixes | FIX-01, FIX-02, FIX-03 | Foundation issues that would cause feature failures |
+| Phase 7: Dynamic Menu Bar Icon | MENUBAR-01~05 | Core v2.0 feature, depends on Phase 6 FIX-01 |
+| Phase 8: Enhanced Status Detection | STATUS-01~03 | Improves accuracy for Phase 7 icon |
+| Phase 9: Differentiated Sound System | SOUND-01~03 | Enhancement, depends on Phase 6 FIX-02 |
+
+### Dependencies
+
+- Phase 6 must complete before Phase 7, 8, 9 (infrastructure fixes required)
+- Phase 7 benefits from Phase 8 (better detection = better icon display)
+- Phase 9 can run parallel to Phase 7-8 but logically comes after
+
+---
 *Requirements defined: 2026-04-02*
-*Last updated: 2026-04-03 after v2.0 kpbl milestone definition*
+*Last updated: 2026-04-03 — v2.0 kpbl milestone phases 6-9 mapped*

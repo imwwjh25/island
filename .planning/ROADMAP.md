@@ -2,21 +2,21 @@
 
 **Created:** 2026-04-02
 **Granularity:** Standard
-**Total Phases:** 5
+**Total Phases:** 9 (5 in v1.0, 4 in v2.0)
+
+## Milestones
+
+- ✅ **v1.0 MVP** - Phases 1-5 (shipped 2026-04-02)
+- 🚧 **v2.0 kpbl** - Phases 6-9 (in progress)
 
 ## Overview
 
-Vibe Island delivers real-time Claude Code agent status monitoring in the macOS Dynamic Island. The roadmap follows a dependency-driven approach: data layer foundation first, then main app core for monitoring, Dynamic Island UI for display, terminal integration for enhancement, and polish for deployment.
+Vibe Island delivers real-time Claude Code agent status monitoring in the macOS menu bar. The roadmap follows a dependency-driven approach: data layer foundation first, then main app core for monitoring, menu bar UI for display, terminal integration for enhancement, and polish for deployment. v2.0 adds dynamic menu bar icon, enhanced status detection, and improved sound system.
 
 ## Phases
 
-- [x] **Phase 1: Data Layer Foundation** - App Groups, socket monitoring, and state persistence ✅
-- [x] **Phase 2: Main App Core** - Background monitoring, sound effects, and state detection ✅
-- [x] **Phase 3: Dynamic Island Widget** - UI rendering, visual prompts, and accessibility ✅
-- [ ] **Phase 4: Terminal Integration** - Terminal tab jumping for iTerm2 and Terminal.app
-- [ ] **Phase 5: Polish & Deployment** - Xcode project setup and DMG packaging for MVP
-
-## Phase Details
+<details>
+<summary>✅ v1.0 MVP (Phases 1-5) - SHIPPED 2026-04-02</summary>
 
 ### Phase 1: Data Layer Foundation
 
@@ -86,8 +86,6 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 
 **UI hint:** yes
 
-**Note:** 由于 macOS 没有 iOS 风格的 Dynamic Island，使用 MenuBarExtra + Popover 作为替代方案。MenuBarExtra 不支持程序化展开 popover，使用视觉提示（闪烁、颜色变化、徽章）替代自动展开功能。
-
 **Completed:** 2026-04-02
 
 ---
@@ -133,25 +131,113 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 
 **Note:** 此阶段针对 MVP 简化，不包含 App Store 提交、性能分析、完整辅助功能测试。目标是生成可安装的应用包用于功能验证。
 
+</details>
+
+---
+
+### 🚧 v2.0 kpbl (In Progress)
+
+**Milestone Goal:** 菜单栏 UI 和状态检测向商业版功能靠近，实现动态图标、增强检测和差异化音效
+
+#### Phase 6: Infrastructure Fixes
+
+**Goal:** 修复基础设施问题，确保后续功能正常工作
+
+**Depends on:** Phase 5
+
+**Requirements:** FIX-01, FIX-02, FIX-03
+
+**Success Criteria** (what must be TRUE):
+1. Singleton state manager persists correctly across view updates without state loss
+2. Sound effects play correctly in menu bar application context
+3. App requests Accessibility permission at launch and handles denial gracefully
+4. User sees clear guidance when Accessibility permission is not granted
+
+**Plans:** TBD
+
+---
+
+#### Phase 7: Dynamic Menu Bar Icon
+
+**Goal:** 用户无需展开菜单栏即可看到代理状态摘要
+
+**Depends on:** Phase 6
+
+**Requirements:** MENUBAR-01, MENUBAR-02, MENUBAR-03, MENUBAR-04, MENUBAR-05
+
+**Success Criteria** (what must be TRUE):
+1. User sees status dot in menu bar icon showing current agent state (in_progress/awaiting_approval/complete)
+2. User sees badge count showing number of active agents
+3. User sees pulsing animation when agents need attention (awaiting_approval)
+4. User sees cyberpunk neon colors for status (cyan in_progress, magenta awaiting, yellow complete)
+5. User with reduced motion preference sees static alternatives to animations
+
+**Plans:** TBD
+
+**UI hint:** yes
+
+---
+
+#### Phase 8: Enhanced Status Detection
+
+**Goal:** 提升状态检测准确率和响应速度
+
+**Depends on:** Phase 7
+
+**Requirements:** STATUS-01, STATUS-02, STATUS-03
+
+**Success Criteria** (what must be TRUE):
+1. System correctly identifies agent states (in_progress/awaiting_approval/complete) from window titles
+2. System detects status changes within 3 seconds of actual state change
+3. System shows reduced false positives in status detection compared to v1.0
+
+**Plans:** TBD
+
+---
+
+#### Phase 9: Differentiated Sound System
+
+**Goal:** 用户通过不同音效区分不同状态变化
+
+**Depends on:** Phase 8
+
+**Requirements:** SOUND-01, SOUND-02, SOUND-03
+
+**Success Criteria** (what must be TRUE):
+1. User hears different sound effect for each state (in_progress vs awaiting_approval vs complete)
+2. Sound effects are silenced when system mute is on
+3. User can enable/disable sound effects via preferences
+
+**Plans:** TBD
+
 ---
 
 ## Progress
 
-| Phase | Plans Complete | Status | Completed |
-|-------|----------------|--------|-----------|
-| 1. Data Layer Foundation | 1/1 | Complete | 2026-04-02 |
-| 2. Main App Core | 1/1 | Complete | 2026-04-02 |
-| 3. Dynamic Island Widget | 4/4 | Complete | 2026-04-02 |
-| 4. Terminal Integration | 0/2 | In planning | - |
-| 5. Polish & Deployment | 0/2 | Planned | - |
+**Execution Order:**
+Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9
 
-**Overall Progress:** 3/5 phases complete
+| Phase | Milestone | Plans Complete | Status | Completed |
+|-------|-----------|----------------|--------|-----------|
+| 1. Data Layer Foundation | v1.0 | 1/1 | Complete | 2026-04-02 |
+| 2. Main App Core | v1.0 | 1/1 | Complete | 2026-04-02 |
+| 3. Dynamic Island Widget | v1.0 | 4/4 | Complete | 2026-04-02 |
+| 4. Terminal Integration | v1.0 | 0/2 | Not started | - |
+| 5. Polish & Deployment | v1.0 | 1/2 | In progress | - |
+| 6. Infrastructure Fixes | v2.0 | 0/TBD | Not started | - |
+| 7. Dynamic Menu Bar Icon | v2.0 | 0/TBD | Not started | - |
+| 8. Enhanced Status Detection | v2.0 | 0/TBD | Not started | - |
+| 9. Differentiated Sound System | v2.0 | 0/TBD | Not started | - |
+
+**Overall Progress:** 6/9+ phases (v1.0 MVP + v2.0 kpbl)
 
 ---
 
 ## Phase Ordering Rationale
 
-**Phase 1 (Data Layer) first:** Shared container and state persistence are foundational. Without verified data flow between main app and widget, all subsequent work fails. This prevents App Group misconfiguration and unpersisted state issues.
+### v1.0 MVP
+
+**Phase 1 (Data Layer) first:** Shared container and state persistence are foundational. Without verified data flow between main app and widget, all subsequent work fails.
 
 **Phase 2 (Main App Core) before Phase 3 (Widget):** Widget needs state feed from main app. Robust socket handling, state detection, and timeline reload triggers must work before UI can display anything useful.
 
@@ -159,6 +245,16 @@ Vibe Island delivers real-time Claude Code agent status monitoring in the macOS 
 
 **Phase 4 (Integration) before Phase 5 (Polish):** All core features working before optimization and deployment preparation.
 
+### v2.0 kpbl
+
+**Phase 6 (Infrastructure Fixes) first:** Existing code has critical issues that would cause features to fail. The @ObservedObject singleton problem causes state loss, AVAudioSession misconfiguration causes sound failure in menu bar apps, and Accessibility permission absence causes silent window detection failures. These must be fixed before adding features.
+
+**Phase 7 (Dynamic Icon) second:** Core v2.0 feature - dynamic menu bar icon showing status at a glance. Depends on Phase 6's state management fix.
+
+**Phase 8 (Enhanced Detection) third:** Improved detection accuracy provides better data for dynamic icon. Complements Phase 7.
+
+**Phase 9 (Sound System) fourth:** Differentiated sounds enhance user experience but depend on Phase 6's AVAudioSession fix. Less critical than visual status, so comes last.
+
 ---
 *Roadmap created: 2026-04-02*
-*Last updated: 2026-04-02 - Phase 5 planned*
+*Last updated: 2026-04-03 - Added v2.0 kpbl milestone phases 6-9*
