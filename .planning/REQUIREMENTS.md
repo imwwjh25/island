@@ -30,8 +30,8 @@
 
 - [x] **CORE-01**: Dynamic Island automatically expands when agent needs approval
 - [x] **CORE-02**: Dynamic Island automatically expands when agent completes
-- [ ] **CORE-03**: User can click agent card to jump to corresponding terminal tab (iTerm2)
-- [ ] **CORE-04**: User can click agent card to jump to corresponding terminal tab (Terminal.app)
+- [x] **CORE-03**: User can click agent card to jump to corresponding terminal tab (iTerm2)
+- [x] **CORE-04**: User can click agent card to jump to corresponding terminal tab (Terminal.app)
 - [x] **CORE-05**: App plays 8-bit pixel game sound effect when agent changes to in_progress
 - [x] **CORE-06**: App plays 8-bit pixel game sound effect when agent changes to complete
 - [x] **CORE-07**: App plays 8-bit pixel game sound effect when agent changes to awaiting_approval
@@ -51,29 +51,29 @@
 
 ### MENUBAR — 菜单栏动态图标
 
-- [ ] **MENUBAR-01**: 用户看到菜单栏显示动态状态指示（状态圆点 + 数量徽章）
-- [ ] **MENUBAR-02**: 用户在重要状态变化时看到闪烁动画效果（等待审批/完成）
-- [ ] **MENUBAR-03**: 用户看到视觉强调效果（缩放脉冲 + 阴影发光）
+- [x] **MENUBAR-01**: 用户看到菜单栏显示动态状态指示（状态圆点 + 数量徽章）
+- [x] **MENUBAR-02**: 用户在重要状态变化时看到闪烁动画效果（等待审批/完成）
+- [x] **MENUBAR-03**: 用户看到视觉强调效果（缩放脉冲 + 阴影发光）
 - [ ] **MENUBAR-04**: 用户看到赛博朋克霓虹配色方案（青色、品红色、黄色）
-- [ ] **MENUBAR-05**: 用户在减少动画模式下看到静态替代效果
+- [x] **MENUBAR-05**: 用户在减少动画模式下看到静态替代效果
 
 ### STATUS — 状态检测增强
 
-- [ ] **STATUS-01**: 系统正确识别代理状态（进行中/等待审批/完成）
-- [ ] **STATUS-02**: 系统优化关键词检测精度，减少误识别
-- [ ] **STATUS-03**: 系统在3秒内检测到状态变化
+- [x] **STATUS-01**: 系统正确识别代理状态（进行中/等待审批/完成）
+- [x] **STATUS-02**: 系统优化关键词检测精度，减少误识别
+- [x] **STATUS-03**: 系统在3秒内检测到状态变化
 
 ### SOUND — 音效系统
 
-- [ ] **SOUND-01**: 用户听到不同状态的不同音效（进行中/等待审批/完成）
-- [ ] **SOUND-02**: 系统在系统静音时不播放音效
-- [ ] **SOUND-03**: 用户可以启用/禁用音效
+- [x] **SOUND-01**: 用户听到不同状态的不同音效（进行中/等待审批/完成）
+- [x] **SOUND-02**: 系统在系统静音时不播放音效
+- [x] **SOUND-03**: 用户可以启用/禁用音效
 
 ### FIX — 基础修复
 
-- [ ] **FIX-01**: 修复 @ObservedObject 与单例组合导致的状态丢失问题
-- [ ] **FIX-02**: 配置 AVAudioSession 使音效在菜单栏应用中正常工作
-- [ ] **FIX-03**: 添加 Accessibility 权限检查并提示用户授权
+- [x] **FIX-01**: 修复 @ObservedObject 与单例组合导致的状态丢失问题
+- [x] **FIX-02**: 配置 AVAudioSession 使音效在菜单栏应用中正常工作
+- [x] **FIX-03**: 添加 Accessibility 权限检查并提示用户授权
 
 ---
 
@@ -139,8 +139,8 @@
 | AGNT-03 | Phase 2 | Complete |
 | CORE-01 | Phase 3 | Complete |
 | CORE-02 | Phase 3 | Complete |
-| CORE-03 | Phase 4 | Pending |
-| CORE-04 | Phase 4 | Pending |
+| CORE-03 | Phase 4 | Complete |
+| CORE-04 | Phase 4 | Complete |
 | CORE-05 | Phase 2 | Complete |
 | CORE-06 | Phase 2 | Complete |
 | CORE-07 | Phase 2 | Complete |
