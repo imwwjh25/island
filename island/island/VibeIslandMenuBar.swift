@@ -174,8 +174,10 @@ struct VibeIslandMenuBar: App {
     @ObservedObject private var menuBarManager = MenuBarManager.shared
 
     var body: some Scene {
-        MenuBarExtra("Vibe Island", systemImage: "sparkles") {
+        MenuBarExtra {
             ExpandedDetailsView()
+        } label: {
+            CompactStatusView()
         }
         .menuBarExtraStyle(.window)
     }
