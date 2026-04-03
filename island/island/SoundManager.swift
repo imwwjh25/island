@@ -97,13 +97,9 @@ class SoundManager {
             // 如果指定类型的音效未加载，尝试使用备用音效
             if let fallbackPlayer = audioPlayers[.inProgress] {
                 fallbackPlayer.currentTime = 0
-                do {
-                    try fallbackPlayer.play()
-                    lastPlayTime = Date()
-                    print("🔊 播放备用音效（类型：\(type.rawValue)）")
-                } catch {
-                    print("⚠️ 播放备用音效失败: \(error.localizedDescription)")
-                }
+                fallbackPlayer.play()
+                lastPlayTime = Date()
+                print("🔊 播放备用音效（类型：\(type.rawValue)）")
             }
             return
         }
@@ -112,13 +108,9 @@ class SoundManager {
         player.currentTime = 0
 
         // 播放音效
-        do {
-            try player.play()
-            lastPlayTime = Date()
-            print("🔊 播放音效（类型：\(type.rawValue)）")
-        } catch {
-            print("⚠️ 播放音效失败: \(error.localizedDescription)")
-        }
+        player.play()
+        lastPlayTime = Date()
+        print("🔊 播放音效（类型：\(type.rawValue)）")
     }
 
     /// 根据代理状态播放对应音效
