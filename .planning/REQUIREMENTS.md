@@ -1,11 +1,11 @@
-# Requirements: Vibe Island
+# Requirements: Vibe Island (kpbl)
 
-**Defined:** 2026-04-02
+**Defined:** 2026-04-03
 **Core Value:** Never lose track of which agent conversation needs your attention — see all agent states in one glance without switching terminals
 
-## v1 Requirements
+---
 
-Requirements for initial release. Each maps to roadmap phases.
+## v1.0 Requirements (MVP - Complete)
 
 ### Dynamic Island UI
 
@@ -43,40 +43,87 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **ACCS-02**: Dynamic Island UI adapts to system appearance (light/dark mode)
 - [x] **ACCS-03**: Dynamic Island UI respects reduced motion accessibility setting
 
-## v2 Requirements
+---
 
-Deferred to future release. Tracked but not in current roadmap.
+## v2.0 Requirements (kpbl)
+
+**Project Code:** `kpbl` — 自用版本迭代代号
+
+### MENUBAR — 菜单栏动态图标
+
+- [ ] **MENUBAR-01**: 用户看到菜单栏显示动态状态指示（状态圆点 + 数量徽章）
+- [ ] **MENUBAR-02**: 用户在重要状态变化时看到闪烁动画效果（等待审批/完成）
+- [ ] **MENUBAR-03**: 用户看到视觉强调效果（缩放脉冲 + 阴影发光）
+- [ ] **MENUBAR-04**: 用户看到赛博朋克霓虹配色方案（青色、品红色、黄色）
+- [ ] **MENUBAR-05**: 用户在减少动画模式下看到静态替代效果
+
+### STATUS — 状态检测增强
+
+- [ ] **STATUS-01**: 系统正确识别代理状态（进行中/等待审批/完成）
+- [ ] **STATUS-02**: 系统优化关键词检测精度，减少误识别
+- [ ] **STATUS-03**: 系统在3秒内检测到状态变化
+
+### SOUND — 音效系统
+
+- [ ] **SOUND-01**: 用户听到不同状态的不同音效（进行中/等待审批/完成）
+- [ ] **SOUND-02**: 系统在系统静音时不播放音效
+- [ ] **SOUND-03**: 用户可以启用/禁用音效
+
+### FIX — 基础修复
+
+- [ ] **FIX-01**: 修复 @ObservedObject 与单例组合导致的状态丢失问题
+- [ ] **FIX-02**: 配置 AVAudioSession 使音效在菜单栏应用中正常工作
+- [ ] **FIX-03**: 添加 Accessibility 权限检查并提示用户授权
+
+---
+
+## v3.0 Requirements (Deferred)
+
+### Extended Status Detection
+
+- **STATUS-04**: 系统识别错误状态
+- **STATUS-05**: 系统识别空闲状态
+- **STATUS-06**: 系统识别思考中状态
+
+### Terminal Integration
+
+- **TERM-01**: 系统精确识别终端标签页 ID
+- **TERM-02**: 用户点击代理卡片跳转到正确的终端标签页
+
+### WezTerm Support
+
+- **TERM-03**: 系统支持 WezTerm 终端跳转
 
 ### Enhanced UX
 
 - **ENH-01**: User can view activity history of recently completed agents
 - **ENH-02**: User sees priority indicators for urgent tasks
-- **ENH-03**: Terminal tab jumping supports WezTerm
-- **ENH-04**: User can toggle sound effects on/off via preferences
 
 ### Additional Agents
 
 - **AGXT-01**: App supports monitoring Codex agents
 - **AGXT-02**: App supports monitoring OpenClaw agents
 
-## Out of Scope
+---
 
-Explicitly excluded. Documented to prevent scope creep.
+## Out of Scope
 
 | Feature | Reason |
 |---------|--------|
-| Terminal content display | Privacy concern — status only, not actual terminal output or agent responses |
-| Other agents (Codex, OpenClaw) | MVP scope — validate with Claude Code first, expand in v2+ |
-| Activity history | Defer to v2+ — nice to have but not essential for MVP validation |
-| Priority indicators | Defer to v2+ — nice to have but not essential for MVP validation |
-| WezTerm terminal support | Defer to v2+ — iTerm2 and Terminal.app sufficient for MVP validation |
-| Custom notification system | Use macOS native notifications instead |
+| Socket 协议检测 | Claude Code CLI 不暴露 socket，复杂度高 |
+| AI 驱动标题解析 | 过度设计，关键词匹配已足够 |
+| 多代理支持 (Codex) | 先验证 Claude Code 概念，v3+ 再扩展 |
+| 活动历史记录 | 延后到 v3+ |
+| 自定义通知中心 | 使用 macOS 原生通知即可 |
+| Terminal content display | Privacy concern — status only, not actual terminal output |
 | Chat interface in Dynamic Island | Too cramped, violates Apple's compact design principles |
-| Agent configuration UI | Hardcoded for Claude Code in MVP — defer to v2+ |
+| Agent configuration UI | Hardcoded for Claude Code in MVP — defer to v3+ |
+
+---
 
 ## Traceability
 
-Which phases cover which requirements. Updated during roadmap creation.
+### v1.0 (MVP)
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
@@ -102,19 +149,30 @@ Which phases cover which requirements. Updated during roadmap creation.
 | ACCS-02 | Phase 3 | Complete |
 | ACCS-03 | Phase 3 | Complete |
 
-**Coverage:**
-- v1 requirements: 20 total
-- Mapped to phases: 20
-- Unmapped: 0 ✓
-- Completed: 18/20 (90%)
+### v2.0 (kpbl)
 
-**Phase Distribution:**
-- Phase 1: 4 requirements (Data Layer Foundation) - Complete ✓
-- Phase 2: 6 requirements (Main App Core) - Complete ✓
-- Phase 3: 10 requirements (Dynamic Island Widget) - Complete ✓
-- Phase 4: 2 requirements (Terminal Integration) - Pending
-- Phase 5: 0 requirements (Polish & Deployment)
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| MENUBAR-01 | Phase 6 | Pending |
+| MENUBAR-02 | Phase 6 | Pending |
+| MENUBAR-03 | Phase 6 | Pending |
+| MENUBAR-04 | Phase 6 | Pending |
+| MENUBAR-05 | Phase 6 | Pending |
+| STATUS-01 | Phase 7 | Pending |
+| STATUS-02 | Phase 7 | Pending |
+| STATUS-03 | Phase 7 | Pending |
+| SOUND-01 | Phase 8 | Pending |
+| SOUND-02 | Phase 8 | Pending |
+| SOUND-03 | Phase 8 | Pending |
+| FIX-01 | Phase 6 | Pending |
+| FIX-02 | Phase 8 | Pending |
+| FIX-03 | Phase 7 | Pending |
+
+**Coverage:**
+- v2.0 requirements: 14 total
+- Mapped to phases: 14
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-04-02*
-*Last updated: 2026-04-02 after Phase 3 completion*
+*Last updated: 2026-04-03 after v2.0 kpbl milestone definition*
