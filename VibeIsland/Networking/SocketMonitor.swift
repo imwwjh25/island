@@ -34,7 +34,7 @@ class SocketMonitor: ObservableObject {
     // MARK: - 常量
 
     /// 默认端口号
-    static let defaultPort = 8765
+    static let defaultPort: UInt16 = 8765
 
     /// 默认主机地址
     static let defaultHost = "localhost"
@@ -221,7 +221,9 @@ class SocketMonitor: ObservableObject {
             guard let self = self else { return }
 
             if let error = error {
-                if (error as? NWError) != .readEOF {
+                // 检查是否为 POSIX 错误 ECONNRESET（连接被重置）
+                let nsError = error as NSError
+                if nsError.domain != NSPOSIXErrorDomain || nsError.code != Int(POSIXError.ECONNRESET.rawValue) {
                     print("❌ 接收数据错误: \(error.localizedDescription)")
                 }
                 return

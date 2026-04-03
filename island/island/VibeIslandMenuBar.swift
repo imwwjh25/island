@@ -38,9 +38,13 @@ class MenuBarManager: ObservableObject {
     /// 套接字监控器
     private var socketMonitor: SocketMonitor?
 
+    /// 窗口监控器
+    private var windowMonitor: WindowMonitor?
+
     private init() {
         setupNotifications()
         setupSocketMonitor()
+        setupWindowMonitor()
     }
 
     // MARK: - Socket 监控设置
@@ -57,6 +61,15 @@ class MenuBarManager: ObservableObject {
 
         // 启动监控
         socketMonitor?.start()
+    }
+
+    // MARK: - 窗口监控设置
+
+    /// 设置窗口监控器
+    private func setupWindowMonitor() {
+        windowMonitor = WindowMonitor.shared
+        windowMonitor?.start()
+        print("✅ 窗口监控已启动")
     }
 
     // MARK: - 通知设置

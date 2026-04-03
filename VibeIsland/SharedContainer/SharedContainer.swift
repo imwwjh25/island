@@ -20,30 +20,30 @@ class SharedContainer {
     // MARK: - 共享 UserDefaults
 
     /// 共享 UserDefaults 实例
-    /// 如果 App Groups 未配置，返回 nil
+    /// 如果 App Groups 未配置，返回标准 UserDefaults（仅用于调试）
     static var sharedUserDefaults: UserDefaults? {
-        let userDefaults = UserDefaults(suiteName: appGroupIdentifier)
-
-        // 验证配置是否有效
-        if let userDefaults = userDefaults {
+        // 首先尝试 App Groups
+        if let userDefaults = UserDefaults(suiteName: appGroupIdentifier) {
             #if DEBUG
-            // 在调试模式下验证配置
             let testKey = "vibeisland_test_key"
             userDefaults.set("test", forKey: testKey)
             if userDefaults.string(forKey: testKey) == "test" {
                 userDefaults.removeObject(forKey: testKey)
                 return userDefaults
-            } else {
-                print("⚠️ App Groups 配置无效，共享容器不可用")
-                return nil
             }
             #else
             return userDefaults
             #endif
         }
 
+        // 降级到标准 UserDefaults（调试模式）
+        #if DEBUG
+        print("⚠️ App Groups 不可用，使用标准 UserDefaults（仅调试）")
+        return UserDefaults.standard
+        #else
         print("⚠️ 无法初始化共享 UserDefaults，请检查 App Groups 配置")
         return nil
+        #endif
     }
 
     // MARK: - 数据存储键
