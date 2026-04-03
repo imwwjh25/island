@@ -7,7 +7,9 @@
 
 import Foundation
 import AVFoundation
+import AVFAudio
 import Combine
+import Cocoa
 
 /// 音效管理器
 /// 负责播放状态变化音效和检测系统静音状态
@@ -48,6 +50,9 @@ class SoundManager {
     private init() {
         // 从 UserDefaults 加载音效设置
         loadSoundEnabledSetting()
+
+        // 配置 macOS 音频会话
+        configureAudioSession()
 
         // 加载音效文件
         loadSoundFile()
@@ -176,6 +181,29 @@ class SoundManager {
     /// 重新加载音效文件（用于测试）
     func reloadSoundFile() {
         loadSoundFile()
+    }
+
+    // MARK: - macOS 音频会话配置
+
+    /// 配置 macOS 音频会话
+    /// 菜单栏应用 (LSUIElement) 需要正确设置音频 category
+    private func configureAudioSession() {
+        #if os(macOS)
+        // macOS 使用 AVAudioApplication，不是 iOS 的 AVAudioSession
+        do {
+            try AVAudioApplication.setCategory(.playback, mode: .default)
+            print("✅ macOS 音频 category 已配置: .playback")
+        } catch {
+            print("⚠️ 配置音频 category 失败: \(error.localizedDescription)")
+        }
+        #else
+        // iOS 使用 AVAudioSession（虽然此应用不支持 iOS，保留代码完整性）
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback)
+        } catch {
+            print("⚠️ 配置音频 category 失败: \(error.localizedDescription)")
+        }
+        #endif
     }
 
     // MARK: - 持久化
