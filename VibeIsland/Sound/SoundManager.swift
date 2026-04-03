@@ -85,6 +85,11 @@ class SoundManager {
             return
         }
 
+        // macOS 菜单栏应用需要激活才能播放音效
+        #if os(macOS)
+        NSApplication.shared.activate(ignoringOtherApps: true)
+        #endif
+
         // 重置到开头
         player.currentTime = 0
 
